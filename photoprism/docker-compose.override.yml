@@ -1,0 +1,7 @@
+---
+version: '3.5'
+
+networks:
+  default:
+    name: nginx_global
+    external: true
