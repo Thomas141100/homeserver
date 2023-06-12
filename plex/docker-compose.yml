@@ -11,6 +11,8 @@ services:
     volumes:
       - ./database:/config
       - ~/Pictures:/pictures
+      - ~/Movies:/movies
+      - ~/Series:/series
     ports:
       - 32400:32400/tcp
       - 1900:1900/udp
