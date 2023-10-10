@@ -10,9 +10,9 @@ services:
       - ADVERTISE_IP="http://plex:32400"
     volumes:
       - ./database:/config
-      - ~/Pictures:/pictures
-      - ~/Movies:/movies
-      - ~/Series:/series
+      - /media/pictures:/pictures
+      - /media/movies:/movies
+      - /media/series:/series
     ports:
       - 32400:32400/tcp
       - 1900:1900/udp
@@ -22,8 +22,3 @@ services:
       - 32413:32413/udp
       - 32414:32414/udp
     restart: unless-stopped
-
-networks:
-  default:
-    name: nginx_global
-    external: true

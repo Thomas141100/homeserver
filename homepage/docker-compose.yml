@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
   
   homepage:
-    image: ghcr.io/benphelps/homepage:latest
+    image: ghcr.io/gethomepage/homepage:latest
     restart: unless-stopped
     container_name: homepage
     # ports:
