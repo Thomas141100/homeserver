@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plex-config
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  volumeName: plex-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pictures
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  volumeName: media-pictures
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-movies
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  volumeName: media-movies
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-series
+  namespace: plex
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  volumeName: media-series
+

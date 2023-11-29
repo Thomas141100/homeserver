@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+        - name: plex
+          image: plexinc/pms-docker
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "Europe/Paris"
+            # - name: PLEX_CLAIM
+            #   value: "claim-xxxxxxxxxxxxxxxxxxxx"
+            - name: ADVERTISE_IP
+              value: "http://plex.admin.thelegend27.fr"
+          volumeMounts:
+            - name: plex-config
+              mountPath: /config
+            - name: media-series
+              mountPath: /series
+            - name: media-movies
+              mountPath: /movies
+            - name: media-pictures
+              mountPath: /pictures
+          ports:
+            - containerPort: 32400
+            - containerPort: 1900
+            - containerPort: 32469
+            - containerPort: 32410
+            - containerPort: 32412
+            - containerPort: 32413
+            - containerPort: 32414
+      volumes:
+        - persistentVolumeClaim:
+            claimName: plex-config
+          name: plex-config
+        - persistentVolumeClaim:
+            claimName: media-movies
+          name: media-movies
+        - persistentVolumeClaim:
+            claimName: media-pictures
+          name: media-pictures
+        - persistentVolumeClaim:
+            claimName: media-series
+          name: media-series

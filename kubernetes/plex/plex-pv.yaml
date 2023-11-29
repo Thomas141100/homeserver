@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plex-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /home/thelegend27/homeserver/plex/database
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain

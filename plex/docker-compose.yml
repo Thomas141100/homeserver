@@ -7,7 +7,7 @@ services:
     environment:
       - TZ="Europe/Paris"
       # - PLEX_CLAIM="claim-uo7af8My9A5fxN9m-3g_"
-      - ADVERTISE_IP="http://plex:32400"
+      - ADVERTISE_IP="https://plex.admin.thelegend27.fr"
     volumes:
       - ./database:/config
       - /media/pictures:/pictures

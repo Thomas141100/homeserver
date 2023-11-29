@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-global-options
+  namespace: caddy-system
+data:
+  acmeCA: internal
+  email: 141100thomas@gmail.com
+  # debug: "false"
