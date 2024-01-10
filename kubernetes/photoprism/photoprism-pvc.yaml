@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-config
-  namespace: plex
+  name: photoprism-storage
+  namespace: photoprism
 spec:
   accessModes:
     - ReadWriteOnce
@@ -11,13 +11,13 @@ spec:
       storage: 1Gi
   storageClassName: hostpath
   volumeMode: Filesystem
-  volumeName: plex-config
+  volumeName: photoprism-storage
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-pictures
-  namespace: plex
+  name: photoprism-database
+  namespace: photoprism
 spec:
   accessModes:
     - ReadWriteOnce
@@ -26,13 +26,13 @@ spec:
       storage: 1Gi
   storageClassName: hostpath
   volumeMode: Filesystem
-  volumeName: plex-pictures
+  volumeName: photoprism-database
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: plex-movies
-  namespace: plex
+  name: photoprism-pictures
+  namespace: photoprism
 spec:
   accessModes:
     - ReadWriteOnce
@@ -41,20 +41,4 @@ spec:
       storage: 1Gi
   storageClassName: hostpath
   volumeMode: Filesystem
-  volumeName: plex-movies
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plex-series
-  namespace: plex
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: hostpath
-  volumeMode: Filesystem
-  volumeName: plex-series
-
+  volumeName: photoprism-pictures

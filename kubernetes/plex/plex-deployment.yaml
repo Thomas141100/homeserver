@@ -27,11 +27,11 @@ spec:
           volumeMounts:
             - name: plex-config
               mountPath: /config
-            - name: media-series
+            - name: plex-series
               mountPath: /series
-            - name: media-movies
+            - name: plex-movies
               mountPath: /movies
-            - name: media-pictures
+            - name: plex-pictures
               mountPath: /pictures
           ports:
             - containerPort: 32400
@@ -46,11 +46,11 @@ spec:
             claimName: plex-config
           name: plex-config
         - persistentVolumeClaim:
-            claimName: media-movies
-          name: media-movies
+            claimName: plex-movies
+          name: plex-movies
         - persistentVolumeClaim:
-            claimName: media-pictures
-          name: media-pictures
+            claimName: plex-pictures
+          name: plex-pictures
         - persistentVolumeClaim:
-            claimName: media-series
-          name: media-series
+            claimName: plex-series
+          name: plex-series

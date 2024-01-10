@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photoprism
+  namespace: photoprism
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: photoprism
+  template:
+    metadata:
+      labels:
+        app: photoprism
+    spec:
+      containers:
+        - name: photoprism
+          image: photoprism/photoprism:latest
+          env:
+            - name: PHOTOPRISM_ADMIN_USER
+              value: "admin"                 # superadmin username
+            - name: PHOTOPRISM_AUTH_MODE
+              value: "password"               # authentication mode (public, password)
+            - name: PHOTOPRISM_SITE_URL
+              value: "https://photos.admin.thelegend27.fr/"  # server URL in the format "http(s)://domain.name(:port)/(path)"
+            - name: PHOTOPRISM_ORIGINALS_LIMIT
+              value: "5000"               # file size limit for originals in MB (increase for high-res video)
+            - name: PHOTOPRISM_HTTP_COMPRESSION
+              value: "gzip"            # improves transfer speed and bandwidth utilization (none or gzip)
+            - name: PHOTOPRISM_LOG_LEVEL
+              value: "info"                   # log level: trace, debug, info, warning, error, fatal, or panic
+            - name: PHOTOPRISM_READONLY
+              value: "false"                   # do not modify originals directory (reduced functionality)
+            - name: PHOTOPRISM_EXPERIMENTAL
+              value: "false"               # enables experimental features
+            - name: PHOTOPRISM_DISABLE_CHOWN
+              value: "true"              # disables updating storage permissions via chmod and chown on startup
+            - name: PHOTOPRISM_DISABLE_WEBDAV
+              value: "false"             # disables built-in WebDAV server
+            - name: PHOTOPRISM_DISABLE_SETTINGS
+              value: "false"           # disables settings UI and API
+            - name: PHOTOPRISM_DISABLE_TENSORFLOW
+              value: "false"         # disables all features depending on TensorFlow
+            - name: PHOTOPRISM_DISABLE_FACES
+              value: "false"              # disables face detection and recognition (requires TensorFlow)
+            - name: PHOTOPRISM_DISABLE_CLASSIFICATION
+              value: "false"     # disables image classification (requires TensorFlow)
+            - name: PHOTOPRISM_DISABLE_RAW
+              value: "false"                # disables indexing and conversion of RAW files
+            - name: PHOTOPRISM_RAW_PRESETS
+              value: "false"                # enables applying user presets when converting RAW files (reduces performance)
+            - name: PHOTOPRISM_JPEG_QUALITY
+              value: "85"                    # a higher value increases the quality and file size of JPEG images and thumbnails (25-100)
+            - name: PHOTOPRISM_DETECT_NSFW
+              value: "false"                # automatically flags photos as private that MAY be offensive (requires TensorFlow)
+            - name: PHOTOPRISM_UPLOAD_NSFW
+              value: "true"                 # allows uploads that MAY be offensive (no effect without TensorFlow)
+            - name: PHOTOPRISM_SITE_CAPTION
+              value: "AI-Powered Photos App"
+            - name: PHOTOPRISM_SITE_DESCRIPTION
+              value: ""                # meta site description
+            - name: PHOTOPRISM_SITE_AUTHOR
+              value: ""                     # meta site author
+          # Load database DSN & admin password from secret
+          envFrom:
+          - secretRef:
+              name: photoprism-secrets
+              optional: false
+          volumeMounts:
+            - name: photoprism-storage
+              mountPath: /photoprism/storage
+            - name: photoprism-pictures
+              mountPath: /photoprism/originals
+          ports:
+            - containerPort: 2342
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /api/v1/status
+              port: http
+        - name: mariadb
+          image: mariadb:10.10
+          args:
+            - mysqld
+            - --innodb-buffer-pool-size=512M
+            - --transaction-isolation=READ-COMMITTED
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_unicode_ci
+            - --max-connections=512
+            - --innodb-rollback-on-timeout=OFF
+            - --innodb-lock-wait-timeout=120
+          env:
+            - name: MARIADB_AUTO_UPGRADE
+              value: "1"
+            - name: MARIADB_INITDB_SKIP_TZINFO
+              value: "1"
+            - name: MARIADB_DATABASE
+              value: "photoprism"
+            - name: MARIADB_USER
+              value: "photoprism"
+            - name: MARIADB_PASSWORD
+              value: "insecure"
+            - name: MARIADB_ROOT_PASSWORD
+              value: "admin"
+          volumeMounts: 
+            - name: photoprism-database
+              mountPath: /var/lib/mysql
+          ports:
+            - containerPort: 3306
+      volumes:
+        - persistentVolumeClaim:
+            claimName: photoprism-storage
+          name: photoprism-storage
+        - persistentVolumeClaim:
+            claimName: photoprism-database
+          name: photoprism-database
+        - persistentVolumeClaim:
+            claimName: photoprism-pictures
+          name: photoprism-pictures
