@@ -4,15 +4,18 @@ services:
     container_name: plex
     hostname: plex
     image: plexinc/pms-docker
+    extends:
+      file: hwaccel.yml
+      service: hwaccel
     environment:
       - TZ="Europe/Paris"
       # - PLEX_CLAIM="claim-uo7af8My9A5fxN9m-3g_"
       - ADVERTISE_IP="https://plex.admin.thelegend27.fr"
     volumes:
       - ./database:/config
-      - /media/pictures:/pictures
-      - /media/movies:/movies
-      - /media/series:/series
+      - /mnt/media/pictures:/pictures
+      - /mnt/media/movies:/movies
+      - /mnt/media/series:/series
     ports:
       - 32400:32400/tcp
       - 1900:1900/udp

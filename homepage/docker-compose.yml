@@ -21,3 +21,5 @@ services:
     volumes:
       - ./config:/app/config # Make sure your local config directory exists
       - ./assets:/app/public/icons
+      - /mnt/media:/mnt/media
+      - /mnt/timemachine:/mnt/timemachine

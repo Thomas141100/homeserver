@@ -69,6 +69,7 @@ services:
       PHOTOPRISM_DATABASE_NAME: "photoprism"         # MariaDB or MySQL database schema name
       PHOTOPRISM_DATABASE_USER: "photoprism"         # MariaDB or MySQL database user name
       PHOTOPRISM_DATABASE_PASSWORD: "insecure"       # MariaDB or MySQL database user password
+      PHOTOPRISM_BACKUP_PATH: "./db_dumps"   # path to backup folder (default: /photoprism/backup)
       PHOTOPRISM_SITE_CAPTION: "AI-Powered Photos App"
       PHOTOPRISM_SITE_DESCRIPTION: ""                # meta site description
       PHOTOPRISM_SITE_AUTHOR: ""                     # meta site author
@@ -97,7 +98,7 @@ services:
     ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
     volumes:
       # "/host/folder:/photoprism/folder"                # Example
-      - "/media/pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
+      - "/mnt/media/pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
       # - "/example/family:/photoprism/originals/family" # *Additional* media folders can be mounted like this
       - "~/Import:/photoprism/import"                  # *Optional* base folder from which files can be imported to originals
       - "./storage:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
@@ -105,14 +106,15 @@ services:
   ## Database Server (recommended)
   ## see https://docs.photoprism.app/getting-started/faq/#should-i-use-sqlite-mariadb-or-mysql
   mariadb:
-    ## If MariaDB gets stuck in a restart loop, this points to a memory or filesystem issue:
-    ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
+    image: mariadb:11
     restart: unless-stopped
-    image: mariadb:10.10
+    stop_grace_period: 5s
     security_opt: # see https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1136151239
       - seccomp:unconfined
       - apparmor:unconfined
-    command: mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
+    ## --lower-case-table-names=1 stores tables in lowercase and compares names in a case-insensitive manner
+    ## see https://mariadb.com/kb/en/server-system-variables/#lower_case_table_names
+    command: --lower-case-table-names=1 --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
     ## Never store database files on an unreliable device such as a USB flash drive, an SD card, or a shared network folder:
     volumes:
       - "./database:/var/lib/mysql" # DO NOT REMOVE
@@ -123,6 +125,37 @@ services:
       MARIADB_USER: "photoprism"
       MARIADB_PASSWORD: "insecure"
       MARIADB_ROOT_PASSWORD: "insecure"
+  
+  db-backup:
+    container_name: db-backup
+    image: tiredofit/db-backup
+    volumes:
+      - ./backups:/backup
+      #- ./post-script.sh:/assets/custom-scripts/post-script.sh
+    environment:
+      - TIMEZONE=Europe/Paris
+      - CONTAINER_NAME=db-backup
+      - CONTAINER_ENABLE_MONITORING=FALSE
+      # - DEBUG_MODE=TRUE
+
+      - BACKUP_JOB_CONCURRENCY=1     # Only run one job at a time
+      - DEFAULT_CHECKSUM=NONE        # Don't create checksums
+      - DEFAULT_COMPRESSION=ZSTD     # Compress all with ZSTD
+      - DEFAULT_BACKUP_INTERVAL=1440   # Backup every 1440 minutes
+      - DEFAULT_BACKUP_BEGIN=0000      # Start backing up at midnight
+      - DEFAULT_CLEANUP_TIME=8640    # Cleanup backups after a week
+
+      - DB01_TYPE=mariadb
+      - DB01_HOST=example-db-host
+      - DB01_NAME=example
+      - DB01_USER=example
+      - DB01_PASS=examplepassword
+      - DB01_BACKUP_INTERVAL=30        # (override) Backup every 30 minutes
+      - DB01_BACKUP_BEGIN=+1           # (override) Backup starts immediately
+      - DB01_CLEANUP_TIME=180        # (override) Cleanup backups they are older than 180 minutes
+      - DB01_CHECKSUM=SHA1           # (override) Create a SHA1 checksum
+      - DB01_COMPRESSION=GZ          # (override) Compress with GZIP
+
 
   ## Watchtower upgrades services automatically (optional)
   ## see https://docs.photoprism.app/getting-started/updates/#watchtower

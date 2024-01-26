@@ -10,7 +10,7 @@ services:
       - TZ=Europe/Paris
     volumes:
       - ./radarr/config:/config
-      - /media:/media
+      - /mnt/media:/media
       # - ~/Movies:/movies #optional
       # - ~/Downloads:/downloads #optional
     ports:
@@ -26,7 +26,7 @@ services:
       - TZ=Europe/Paris
     volumes:
       - ./sonarr/config:/config
-      - /media:/media
+      - /mnt/media:/media
       # - ~/Series:/series #optional
       # - ~/Downloads:/downloads #optional
     ports:
@@ -58,7 +58,7 @@ services:
       - WEBUI_PORT=8085
     volumes:
       - ./qbittorrent/config:/config
-      - /media/downloads:/downloads
+      - /mnt/media/downloads:/downloads
     ports:
       - 8085:8085
       - 6881:6881
