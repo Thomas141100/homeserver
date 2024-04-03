@@ -1,8 +1,6 @@
-version: "3.7"
-
 services:
   caddy:
-    image: caddy:2.6.4_1.1.19
+    image: caddy:2.7.6_1.1.27
     build: .
     restart: unless-stopped
     env_file:

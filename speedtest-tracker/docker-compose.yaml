@@ -1,8 +1,6 @@
-version: '3.3'
-
 services:
   speedtest-tracker:
-    image: 'ghcr.io/alexjustesen/speedtest-tracker:latest'
+    image: ghcr.io/alexjustesen/speedtest-tracker:latest
     container_name: speedtest-tracker
     # ports:
     #   - '8080:80'

@@ -1,5 +1,4 @@
 ---
-version: "2.1"
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
@@ -12,9 +11,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - SERVERURL=thelegend27.ddns.net #optional
+      - SERVERURL=admin.thelegend27.fr #optional
       - SERVERPORT=51820 #optional
-      - PEERS=1 #optional
+      - PEERS=2 #optional
       - PEERDNS=auto #optional
       - INTERNAL_SUBNET=10.13.13.0 #optional
       - ALLOWEDIPS=0.0.0.0/0 #optional

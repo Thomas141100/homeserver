@@ -1,5 +1,3 @@
-version: "3.8"
-
 # Hardware acceleration for transcoding - Optional
 # This is only needed if you want to use hardware acceleration for transcoding.
 # Depending on your hardware, you should uncomment the relevant lines below.
