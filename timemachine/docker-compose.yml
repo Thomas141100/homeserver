@@ -5,32 +5,26 @@ services:
     restart: unless-stopped
     network_mode: "host"
     environment:
-      - CUSTOM_SMB_CONF=false
-      - CUSTOM_USER=false
-      - DEBUG_LEVEL=1
-      - EXTERNAL_CONF=
-      - HIDE_SHARES=no
-#      - MIMIC_MODEL=TimeCapsule8,119
-      - TM_USERNAME=timemachine
+      # - DEBUG_LEVEL=3
+      - TM_USERNAME=thelegend27
       - TM_GROUPNAME=timemachine
+      - PASSWORD=timemachine
       - TM_UID=1000
       - TM_GID=1000
-      - PASSWORD=timemachine
       - SET_PERMISSIONS=false
-      - SHARE_NAME=TimeMachine
-      - SMB_INHERIT_PERMISSIONS=no
-      - SMB_NFS_ACES=no
-      - SMB_METADATA=stream
-      - SMB_PORT=445
-      - SMB_VFS_OBJECTS=acl_xattr fruit streams_xattr
       - VOLUME_SIZE_LIMIT=400000000000
-      - WORKGROUP=WORKGROUP
-    ports:
-      - "137:137/udp"
-      - "138:138/udp"
-      - "139:139"
+    # ports:
+    #   - "137:137/udp"
+    #   - "138:138/udp"
+    #   - "139:139"
+    #   - "445:445"
     volumes:
-      - /mnt/timemachine:/opt/timemachine
+      - /mnt/timemachine:/opt/thelegend27
       - ./var-lib-samba:/var/lib/samba
       - ./var-cache-samba:/var/cache/samba
-      - ./run-samba:/run/samba
+    tmpfs:
+      - /run/samba
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536

@@ -1,5 +1,3 @@
-version: "3.8"
-
 # Configurations for hardware-accelerated machine learning
 
 # If using Unraid or another platform that doesn't allow multiple Compose files,
@@ -16,7 +14,7 @@ services:
       - /lib/firmware/mali_csffw.bin:/lib/firmware/mali_csffw.bin:ro # Mali firmware for your chipset (not always required depending on the driver)
       - /usr/lib/libmali.so:/usr/lib/libmali.so:ro # Mali driver for your chipset (always required)
 
-  cpu:
+  # cpu:
 
   cuda:
     deploy:

@@ -73,7 +73,8 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_DB: ${DB_DATABASE_NAME}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      # - pgdata:/var/lib/postgresql/data
+      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
     restart: always
 
   backup:
@@ -86,7 +87,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME}
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      SCHEDULE: "@weekly"
+      SCHEDULE: "@daily"
       BACKUP_DIR: /db_dumps
       BACKUP_KEEP_DAYS: 1
       BACKUP_KEEP_WEEKS: 4
@@ -97,5 +98,5 @@ services:
       - database
 
 volumes:
-  pgdata:
+  # pgdata:
   model-cache:
