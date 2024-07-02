@@ -1,0 +1,4 @@
+networks:
+  default:
+    name: nginx_global
+    external: true

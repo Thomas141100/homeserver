@@ -1,0 +1,22 @@
+---
+services:
+  minecraft-server:
+    image: itzg/minecraft-server
+    container_name: minecraft-server
+    environment:
+      EULA: TRUE
+      CF_API_KEY: ${CF_API_KEY}
+      TYPE: AUTO_CURSEFORGE
+      CF_SLUG: vault-hunters-1-18-2
+      CF_FILE_ID: 5076205
+      MAX_MEMORY: 8G
+      SERVER_NAME: Igloo
+      MOTD: A ratio a day, keeps the doctor away
+      ICON: /data/buttercat.png
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./data:/data
+    network_mode: "host"
+    ports:
+      - "25565:25565"
+    restart: unless-stopped

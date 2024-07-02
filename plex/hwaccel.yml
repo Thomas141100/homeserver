@@ -11,10 +11,14 @@ services:
     # environment:
     #   - LD_LIBRARY_PATH=/usr/lib/wsl/lib # If using VAAPI in WSL2
     #   - LIBVA_DRIVER_NAME=d3d12 # If using VAAPI in WSL2
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
     deploy: # Uncomment this section if using NVIDIA GPU
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu,video]
+              capabilities: [gpu]
