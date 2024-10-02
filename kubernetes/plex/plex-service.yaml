@@ -8,24 +8,17 @@ spec:
   ports:
     - port: 32400
       name: http
-      targetPort: 32400
     - port: 1900
       name: dlna-udp
-      targetPort: 1900
     - port: 32469
       name: dlna-tcp
-      targetPort: 32469
     - port: 32410
       name: gdm-1
-      targetPort: 32410
     - port: 32412
       name: gdm-2
-      targetPort: 32412
     - port: 32413
       name: gdm-3
-      targetPort: 32413
     - port: 32414
       name: gdm-4
-      targetPort: 32414
   selector:
     app: plex
