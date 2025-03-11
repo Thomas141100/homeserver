@@ -1,0 +1,36 @@
+services:
+  qbittorrent-wireguard:
+    cap_add:
+      - "NET_ADMIN"
+    container_name: "qbittorrent-wireguard"
+    entrypoint:
+      - "/bin/bash"
+      - "/start.sh"
+    environment:
+      - "PUID=1000"
+      - "PGID=1000"
+      - "LAN_NETWORK=192.168.1.0/24"
+      - "QBT_LEGAL_NOTICE=confirm"
+      - "WEBUI_URL=https://torrent.admin.thelegend27.fr"
+      - "QBT_TorrentManage_SavePath=/media/downloads"
+    image: "docker.io/tenseiken/qbittorrent-wireguard:latest"
+    ipc: "private"
+    # network_mode: "bridge"
+    ports:
+      - "8999:8999/tcp"
+      - "8999:8999/udp"
+      - "8080:8080"
+    privileged: true
+    restart: "unless-stopped"
+    security_opt:
+      - "label=disable"
+    stdin_open: true
+    sysctls:
+      - "net.ipv4.conf.all.rp_filter=2"
+      - "net.ipv4.conf.all.src_valid_mark=1"
+      - "net.ipv6.conf.all.disable_ipv6=0"
+    tty: true
+    volumes:
+      - ./config:/config
+      - /mnt/media:/media
+    working_dir: "/opt"
