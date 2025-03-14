@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: movies
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: radarr
+          image: lscr.io/linuxserver/radarr:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "Europe/Paris"
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: radarr-media
+              mountPath: /media
+          ports:
+            - containerPort: 7878
+      volumes:
+        - name: radarr-config
+          hostPath:
+            path: /home/thelegend27/homeserver/movies/radarr/config
+        - name: radarr-media
+          hostPath:
+            path: /mnt/media

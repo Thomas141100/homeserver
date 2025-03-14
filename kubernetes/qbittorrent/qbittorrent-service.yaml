@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-wireguard
+  namespace: qbittorrent
+spec:
+  type: ClusterIP
+  selector:
+    app: qbittorrent-wireguard
+  ports:
+    - name: "http"
+      port: 8080
+    - name: "bittorrent"
+      port: 8999

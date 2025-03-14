@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
-  namespace: argocd
+  name: prometheus-ingress
+  namespace: monitoring
 spec:
   ingressClassName: caddy
   rules:
-  - host: argocd.admin.thelegend27.fr
+  - host: prometheus.admin.thelegend27.fr
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: argocd-server
+            name: prometheus-kube-prometheus-prometheus
             port:
-              number: 443
+              number: 9090

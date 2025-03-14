@@ -5,6 +5,8 @@ metadata:
   namespace: plex
 spec:
   type: ClusterIP
+  selector:
+    app: plex
   ports:
     - port: 32400
       name: http
@@ -20,5 +22,4 @@ spec:
       name: gdm-3
     - port: 32414
       name: gdm-4
-  selector:
-    app: plex
+

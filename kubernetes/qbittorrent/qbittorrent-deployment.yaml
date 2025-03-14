@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent-wireguard
+  namespace: qbittorrent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent-wireguard
+  template:
+    metadata:
+      labels:
+        app: qbittorrent-wireguard
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: qbittorrent-wireguard
+          image: docker.io/tenseiken/qbittorrent-wireguard:latest
+          command:
+            - /bin/bash
+            - /start.sh
+          env:
+            - name: LAN_NETWORK
+              value: 192.168.1.0/24
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: QBT_LEGAL_NOTICE
+              value: confirm
+            - name: QBT_TorrentManage_SavePath
+              value: /media/downloads
+            - name: WEBUI_URL
+              value: https://torrent.admin.thelegend27.fr
+          ports:
+            - containerPort: 8999
+            - containerPort: 8080
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: true
+          stdin: true
+          tty: true
+          volumeMounts:
+            - mountPath: /config
+              name: qbittorrent-config
+            - mountPath: /media
+              name: qbittorrent-media
+          workingDir: /opt
+      volumes:
+        - name: qbittorrent-config
+          hostPath:
+            path: /home/thelegend27/homeserver/qbittorrent/config
+        - name: qbittorrent-media
+          hostPath:
+            path: /mnt/media

@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
-  namespace: argocd
+  name: sonarr-ingress
+  namespace: movies
 spec:
   ingressClassName: caddy
   rules:
-  - host: argocd.admin.thelegend27.fr
+  - host: sonarr.admin.thelegend27.fr
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: argocd-server
+            name: sonarr
             port:
-              number: 443
+              number: 8989

@@ -46,22 +46,22 @@ services:
   #     - 8686:8686
   #   restart: unless-stopped
 
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Paris
-      - WEBUI_PORT=8085
-    volumes:
-      - ./qbittorrent/config:/config
-      - /mnt/media/downloads:/downloads
-    ports:
-      - 8085:8085
-      - 6881:6881
-      - 6881:6881/udp
-    restart: unless-stopped
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent:latest
+  #   container_name: qbittorrent
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Paris
+  #     - WEBUI_PORT=8085
+  #   volumes:
+  #     - ./qbittorrent/config:/config
+  #     - /mnt/media/downloads:/downloads
+  #   ports:
+  #     - 8085:8085
+  #     - 6881:6881
+  #     - 6881:6881/udp
+  #   restart: unless-stopped
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest

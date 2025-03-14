@@ -1,0 +1,41 @@
+kind: "postgresql"
+apiVersion: "acid.zalan.do/v1"
+
+metadata:
+  name: "immich-postgresql"
+  namespace: "default"
+  labels:
+    team: acid
+
+spec:
+  teamId: "acid"
+  postgresql:
+    version: "17"
+    parameters:
+      shared_preload_libraries: "vectors.so"
+
+  numberOfInstances: 1
+  maintenanceWindows:
+  volume:
+    size: "10Gi"
+  preparedDatabases:
+    immich:
+      schemas:
+        public: {}
+      extensions:
+        cube: public
+        earthdistance: public
+        vector: public
+  allowedSourceRanges:
+    # IP ranges to access your cluster go here
+  # patroni:
+  #   pg_hba:
+  #     - "host all all 0.0.0.0/0 md5"
+  #     - "hostssl all all 0.0.0.0/0 md5"  # Optional: Allow SSL but not force it
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi

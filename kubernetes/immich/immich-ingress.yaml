@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
-  namespace: argocd
+  name: immich-ingress
+  namespace: immich
 spec:
   ingressClassName: caddy
   rules:
-  - host: argocd.admin.thelegend27.fr
+  - host: immich.admin.thelegend27.fr
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: argocd-server
+            name: immich
             port:
-              number: 443
+              number: 2283
