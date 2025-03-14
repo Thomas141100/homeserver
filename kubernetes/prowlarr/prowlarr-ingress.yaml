@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prowlarr-ingress
+  namespace: movies
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Prowlarr
+    gethomepage.dev/description: Indexer
+    gethomepage.dev/icon: prowlarr.png
+    gethomepage.dev/group: Media Management
+    gethomepage.dev/pod-selector: app=prowlarr
+    gethomepage.dev/widget.type: prowlarr
+    gethomepage.dev/widget.url: http://prowlarr.movies:9696
+    gethomepage.dev/widget.key: ""
+spec:
+  ingressClassName: caddy
+  rules:
+  - host: prowlarr.admin.thelegend27.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prowlarr
+            port:
+              number: 9696

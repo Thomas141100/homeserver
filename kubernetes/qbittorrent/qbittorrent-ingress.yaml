@@ -3,6 +3,17 @@ kind: Ingress
 metadata:
   name: qbittorrent-ingress
   namespace: qbittorrent
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: qBitorrent
+    gethomepage.dev/description: Torrents
+    gethomepage.dev/icon: qbittorrent.png
+    gethomepage.dev/group: Media Management
+    gethomepage.dev/pod-selector: app=qbittorrent-wireguard
+    gethomepage.dev/widget.type: qbittorrent
+    gethomepage.dev/widget.url: http://qbittorrent-wireguard.qbittorrent:8080
+    gethomepage.dev/widget.username: ""
+    gethomepage.dev/widget.password: ""
 spec:
   ingressClassName: caddy
   rules:

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      serviceAccountName: homepage
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: homepage
+          image: "ghcr.io/gethomepage/homepage:latest"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          volumeMounts:
+            - name: homepage-config
+              mountPath: /app/config/
+            - name: homepage-assets
+              mountPath: /app/public/icons
+            - name: logs
+              mountPath: /app/config/logs
+            - name: media
+              mountPath: /mnt/media
+            - name: timemachine
+              mountPath: /mnt/timemachine
+      volumes:
+        - name: homepage-config
+          # hostPath:
+          #   path: /home/thelegend27/homeserver/homepage/config
+          configMap:
+            name: homepage-config
+        - name: homepage-assets
+          hostPath:
+            path: /home/thelegend27/homeserver/homepage/assets
+        - name: logs
+          emptyDir: {}
+        - name: media
+          hostPath:
+            path: /mnt/media
+        - name: timemachine
+          hostPath:
+            path: /mnt/timemachine

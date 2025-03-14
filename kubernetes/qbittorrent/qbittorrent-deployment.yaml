@@ -34,8 +34,8 @@ spec:
             - name: WEBUI_URL
               value: https://torrent.admin.thelegend27.fr
           ports:
-            - containerPort: 8999
             - containerPort: 8080
+            - containerPort: 8999
           securityContext:
             capabilities:
               add:

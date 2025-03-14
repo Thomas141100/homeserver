@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: immich-ingress
-  namespace: immich
+  name: homepage-ingress
+  namespace: homepage
 spec:
   ingressClassName: caddy
   rules:
-  - host: immich.admin.thelegend27.fr
+  - host: admin.thelegend27.fr
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: immich-server
+            name: homepage
             port:
-              number: 2283
+              number: 3000
