@@ -1,0 +1,8 @@
+helm repo add caddy https://caddyserver.github.io/ingress/
+
+helm upgrade --install caddy \
+  --namespace caddy-system \
+  --create-namespace \
+  caddy/caddy-ingress-controller
+
+helm upgrade --install caddy-ingress-controller

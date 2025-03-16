@@ -14,7 +14,7 @@ metadata:
     gethomepage.dev/widget.url: radarr.movies:7878
     gethomepage.dev/widget.key: ""
 spec:
-  ingressClassName: caddy
+  # ingressClassName: caddy
   rules:
   - host: radarr.admin.thelegend27.fr
     http:

@@ -14,7 +14,7 @@ metadata:
     gethomepage.dev/widget.url: http://sonarr.movies:8989
     gethomepage.dev/widget.key: ""
 spec:
-  ingressClassName: caddy
+  # ingressClassName: caddy
   rules:
   - host: sonarr.admin.thelegend27.fr
     http:

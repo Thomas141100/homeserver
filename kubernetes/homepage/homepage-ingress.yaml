@@ -4,7 +4,7 @@ metadata:
   name: homepage-ingress
   namespace: homepage
 spec:
-  ingressClassName: caddy
+  # ingressClassName: caddy
   rules:
   - host: admin.thelegend27.fr
     http:

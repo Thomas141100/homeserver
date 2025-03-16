@@ -14,7 +14,7 @@ metadata:
     gethomepage.dev/widget.url: http://prowlarr.movies:9696
     gethomepage.dev/widget.key: ""
 spec:
-  ingressClassName: caddy
+  # ingressClassName: caddy
   rules:
   - host: prowlarr.admin.thelegend27.fr
     http:
