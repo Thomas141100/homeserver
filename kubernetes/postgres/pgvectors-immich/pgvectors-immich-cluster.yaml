@@ -11,7 +11,7 @@ spec:
       database: immich
       owner: immich
       secret:
-        name: immich
+        name: pgvectors-immich-secrets
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS "vectors";
         - CREATE EXTENSION IF NOT EXISTS cube;

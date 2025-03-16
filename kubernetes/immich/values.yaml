@@ -11,12 +11,12 @@ env:
   DB_USERNAME:
     valueFrom:
       secretKeyRef:
-        name: immich
+        name: pgvectors-immich-secrets
         key: username
   DB_PASSWORD:
     valueFrom:
       secretKeyRef:
-        name: immich
+        name: pgvectors-immich-secrets
         key: password
   IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 

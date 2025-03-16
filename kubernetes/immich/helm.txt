@@ -1,0 +1,7 @@
+helm repo add immich https://immich-app.github.io/immich-charts
+
+helm upgrade --install immich \
+    --namespace  immich \
+    --create-namespace \
+    immich/immich \
+    -f values.yaml
