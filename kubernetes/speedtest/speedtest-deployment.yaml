@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest
+  namespace: speedtest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest
+  template:
+    metadata:
+      labels:
+        app: speedtest
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: speedtest
+          image: germannewsmaker/myspeed:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: speedtest-data
+              mountPath: /myspeed/data
+          ports:
+            - containerPort: 5216
+      volumes:
+        - name: speedtest-data
+          hostPath:
+            path: /home/thelegend27/homeserver/speedtest/data

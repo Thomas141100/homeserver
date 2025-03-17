@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: speedtest-ingress
+  namespace: speedtest
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: SpeedTest
+    gethomepage.dev/description: Speed Test
+    gethomepage.dev/icon: speedtest-tracker.png
+    gethomepage.dev/group: Network
+    gethomepage.dev/pod-selector: app=speedtest
+    gethomepage.dev/widget.type: myspeed
+    gethomepage.dev/widget.url: http://speedtest.speedtest:5216
+    # gethomepage.dev/widget.password: ""
+spec:
+  rules:
+  - host: speedtest.admin.thelegend27.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: speedtest
+            port:
+              number: 5216
