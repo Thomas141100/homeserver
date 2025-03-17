@@ -18,14 +18,14 @@ data:
     - Media
     - Media Management
     - Network:
-      - Speedtest:
-          icon: speedtest-tracker.png
-          href: https://speedtest.admin.thelegend27.fr
-          server: my-docker
-          container: speedtest-tracker
-          widget:
-              type: speedtest
-              url: http://speedtest-tracker:80
+      # - Speedtest:
+      #     icon: speedtest-tracker.png
+      #     href: https://speedtest.admin.thelegend27.fr
+      #     server: my-docker
+      #     container: speedtest-tracker
+      #     widget:
+      #       type: speedtest
+      #       url: http://speedtest-tracker:80
       - Router:
           icon: watchyourlan.png
           href: https://router.admin.thelegend27.fr
