@@ -1,13 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: thelegend27-fr-certificate
+  name: admin-thelegend27-certificate
   namespace: cert-manager
 spec:
-  secretName: thelegend27-fr-tls
+  secretName: admin-thelegend27-tls
   issuerRef:
     name: cloudflare-issuer
-  commonName: thelegend27.fr
+  commonName: admin.thelegend27.fr
   dnsNames:
-  - thelegend27.fr
-  - admin.thelegend27.fr
+    - admin.thelegend27.fr

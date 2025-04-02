@@ -1,0 +1,3 @@
+helm repo add authelia https://charts.authelia.com
+
+helm install -n authelia authelia authelia/authelia --create-namespace

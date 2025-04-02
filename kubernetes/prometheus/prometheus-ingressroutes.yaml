@@ -1,0 +1,32 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-ingress
+  namespace: cert-manager
+  annotations:
+    gethomepage.dev/href: https://prometheus.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Prometheus
+    gethomepage.dev/description: Event monitoring and alerting
+    gethomepage.dev/icon: prometheus.png
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/pod-selector: app=prometheus
+    gethomepage.dev/widget.type: prometheus
+    gethomepage.dev/widget.url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`prometheus.admin.thelegend27.fr`)
+      # middlewares:
+      #   - name: forwardauth-authelia
+      #     namespace: traefik
+      services:
+        - name: prometheus-kube-prometheus-prometheus
+          namespace: monitoring
+          port: 9090
+
+  tls:
+    secretName: wildcard-admin-thelegend27-tls

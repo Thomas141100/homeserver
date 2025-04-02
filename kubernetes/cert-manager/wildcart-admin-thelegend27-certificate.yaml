@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-admin-thelegend27-certificate
+  namespace: cert-manager
+spec:
+  secretName: wildcard-admin-thelegend27-tls
+  issuerRef:
+    name: cloudflare-issuer
+  commonName: "*.admin.thelegend27.fr"
+  dnsNames:
+    - "*.admin.thelegend27.fr"

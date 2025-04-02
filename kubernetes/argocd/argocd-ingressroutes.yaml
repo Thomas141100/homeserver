@@ -2,7 +2,18 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: argocd-server
-  namespace: argocd
+  namespace: cert-manager
+  annotations:
+    gethomepage.dev/href: https://argocd.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: ArgoCD
+    # gethomepage.dev/description: Grafana
+    gethomepage.dev/icon: argo-cd.png
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/pod-selector: app=argocd
+    gethomepage.dev/widget.type: argocd
+    gethomepage.dev/widget.url: http://argocd-server.argocd:80
+    gethomepage.dev/widget.key: ""
 spec:
   entryPoints:
     - web
@@ -13,13 +24,16 @@ spec:
       # priority: 10
       services:
         - name: argocd-server
+          namespace: argocd
           port: 80
     - kind: Rule
       match: Host(`argocd.admin.thelegend27.fr`) && Header(`Content-Type`, `application/grpc`)
       priority: 11
       services:
         - name: argocd-server
+          namespace: argocd
           port: 80
           scheme: h2c
-  # tls:
-  #   certResolver: default
+
+  tls:
+    secretName: wildcard-admin-thelegend27-tls

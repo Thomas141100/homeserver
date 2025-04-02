@@ -6,6 +6,7 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
+    traefik: true
   settings.yaml: ""
   #settings.yaml: |
   #  providers:
@@ -15,17 +16,9 @@ data:
   custom.js: ""
   bookmarks.yaml: ""
   services.yaml: |
-    - Media
-    - Media Management
+    # - Media
+    # - Media Management
     - Network:
-      # - Speedtest:
-      #     icon: speedtest-tracker.png
-      #     href: https://speedtest.admin.thelegend27.fr
-      #     server: my-docker
-      #     container: speedtest-tracker
-      #     widget:
-      #       type: speedtest
-      #       url: http://speedtest-tracker:80
       - Router:
           icon: watchyourlan.png
           href: https://router.admin.thelegend27.fr

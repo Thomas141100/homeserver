@@ -3,10 +3,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: postgres-authentik-daily-backup
-  namespace: authentik
+  name: postgres-authelia-daily-backup
+  namespace: authelia
 spec:
   schedule: "@daily"
   backupOwnerReference: self
   cluster:
-    name: postgres-authentik-cluster
+    name: postgres-authelia-cluster

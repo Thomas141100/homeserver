@@ -1,0 +1,35 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: immich-ingress
+  namespace: cert-manager
+  annotations:
+    gethomepage.dev/href: https://immich.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Immich
+    gethomepage.dev/description: Photos
+    gethomepage.dev/icon: immich.png
+    gethomepage.dev/group: Media
+    gethomepage.dev/pod-selector: app=immich
+    gethomepage.dev/widget.type: immich
+    gethomepage.dev/widget.url: http://immich-server.immich:2283
+    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.version: "2"
+
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`immich.admin.thelegend27.fr`)
+      # middlewares:
+      #   - name: forwardauth-authelia
+      #     namespace: traefik
+      services:
+        - name: immich-server
+          namespace: immich
+          port: 2283
+
+  tls:
+    secretName: wildcard-admin-thelegend27-tls

@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: speedtest-ingress
+  namespace: cert-manager
+  annotations:
+    gethomepage.dev/href: https://speedtest.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: SpeedTest
+    gethomepage.dev/description: Internet Speed
+    gethomepage.dev/icon: speedtest-tracker.png
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/pod-selector: app=speedtest
+    gethomepage.dev/widget.type: myspeed
+    gethomepage.dev/widget.url: http://speedtest.speedtest:5216
+    # gethomepage.dev/widget.password: ""
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`speedtest.admin.thelegend27.fr`)
+      # middlewares:
+      #   - name: forwardauth-authelia
+      #     namespace: traefik
+      services:
+        - name: speedtest
+          namespace: speedtest
+          port: 5216
+
+  tls:
+    secretName: wildcard-admin-thelegend27-tls

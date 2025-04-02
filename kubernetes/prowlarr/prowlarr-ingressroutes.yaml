@@ -1,18 +1,18 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: sonarr-ingress
+  name: prowlarr-ingress
   namespace: cert-manager
   annotations:
-    gethomepage.dev/href: https://sonarr.admin.thelegend27.fr
+    gethomepage.dev/href: https://prowlarr.admin.thelegend27.fr
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/name: Sonarr
-    gethomepage.dev/description: TV Shows
-    gethomepage.dev/icon: sonarr.png
+    gethomepage.dev/name: Prowlarr
+    gethomepage.dev/description: Indexer
+    gethomepage.dev/icon: prowlarr.png
     gethomepage.dev/group: Media Management
-    gethomepage.dev/pod-selector: app=sonarr
-    gethomepage.dev/widget.type: sonarr
-    gethomepage.dev/widget.url: http://sonarr.movies:8989
+    gethomepage.dev/pod-selector: app=prowlarr
+    gethomepage.dev/widget.type: prowlarr
+    gethomepage.dev/widget.url: http://prowlarr.movies:9696
     gethomepage.dev/widget.key: ""
 spec:
   entryPoints:
@@ -20,14 +20,14 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`sonarr.admin.thelegend27.fr`)
+      match: Host(`prowlarr.admin.thelegend27.fr`)
       # middlewares:
       #   - name: forwardauth-authelia
       #     namespace: traefik
       services:
-        - name: sonarr
+        - name: prowlarr
           namespace: movies
-          port: 8989
+          port: 9696
 
   tls:
     secretName: wildcard-admin-thelegend27-tls
