@@ -9,6 +9,21 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
+    path: /mnt/media/immich
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: photoprism-pictures
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
     path: /mnt/media/pictures
   storageClassName: hostpath
   volumeMode: Filesystem

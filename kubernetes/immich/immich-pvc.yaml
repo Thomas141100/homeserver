@@ -13,3 +13,18 @@ spec:
   storageClassName: hostpath
   volumeMode: Filesystem
   volumeName: immich-pictures
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: photoprism-pictures
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  volumeName: photoprism-pictures
