@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/name: SpeedTest
     gethomepage.dev/description: Internet Speed
     gethomepage.dev/icon: speedtest-tracker.png
-    gethomepage.dev/group: Monitoring
+    gethomepage.dev/group: Network
     gethomepage.dev/pod-selector: app=speedtest
     gethomepage.dev/widget.type: myspeed
     gethomepage.dev/widget.url: http://speedtest.speedtest:5216
