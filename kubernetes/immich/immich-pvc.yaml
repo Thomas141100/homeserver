@@ -17,14 +17,14 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: photoprism-pictures
+  name: immich-external
   namespace: immich
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   resources:
     requests:
       storage: 1Gi
   storageClassName: hostpath
   volumeMode: Filesystem
-  volumeName: photoprism-pictures
+  volumeName: immich-external

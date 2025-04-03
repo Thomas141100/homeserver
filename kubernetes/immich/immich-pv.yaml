@@ -9,7 +9,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: /mnt/media/immich
+    path: /home/thelegend27/Images
   storageClassName: hostpath
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
@@ -17,10 +17,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: photoprism-pictures
+  name: immich-external
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   capacity:
     storage: 1Gi
   hostPath:

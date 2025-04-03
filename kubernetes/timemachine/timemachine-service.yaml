@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: timemachine-udp
+  namespace: timemachine
+  labels:
+    app: timemachine
+spec:
+  ports:
+    - port: 137
+      name: udp137
+      protocol: UDP
+    - port: 138
+      name: udp138
+      protocol: UDP
+  type: ClusterIP
+  selector:
+    app: timemachine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: timemachine-tcp
+  namespace: timemachine
+  labels:
+    app: timemachine
+spec:
+  ports:
+    - port: 139
+      name: tcp139
+    - port: 445
+      name: tcp445
+  type: ClusterIP
+  selector:
+    app: timemachine

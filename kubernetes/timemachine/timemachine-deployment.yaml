@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timemachine
+  namespace: timemachine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: timemachine
+  template:
+    metadata:
+      labels:
+        app: timemachine
+    spec:
+      hostNetwork: true
+      containers:
+        - name: timemachine
+          image: mbentley/timemachine:smb
+          ports:
+            - containerPort: 137
+              name: udp137
+              protocol: UDP
+            - containerPort: 138
+              name: udp138
+              protocol: UDP
+            - containerPort: 139
+              name: tcp139
+            - containerPort: 445
+              name: tcp445
+          volumeMounts:
+            - name: timemachine-data
+              mountPath: /opt/timemachine
+            - name: run-samba
+              mountPath: /run/samba
+          envFrom:
+            - configMapRef:
+                name: timemachine-config
+      volumes:
+        - name: timemachine-data
+          hostPath:
+            path: /mnt/timemachine
+        - name: run-samba
+          emptyDir: {}
