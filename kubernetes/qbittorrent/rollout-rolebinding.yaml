@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rollout-qbittorrent
+  namespace: qbittorrent
+subjects:
+  - kind: ServiceAccount
+    name: rollout-qbittorrent
+roleRef:
+  kind: Role
+  name: rollout-qbittorrent
+  apiGroup: rbac.authorization.k8s.io
