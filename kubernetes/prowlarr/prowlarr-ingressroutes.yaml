@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/pod-selector: app=prowlarr
     gethomepage.dev/widget.type: prowlarr
     gethomepage.dev/widget.url: http://prowlarr.movies:9696
-    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PROWLARR_TOKEN}}"
 spec:
   entryPoints:
     - web

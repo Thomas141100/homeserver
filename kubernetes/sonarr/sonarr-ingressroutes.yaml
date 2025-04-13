@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/pod-selector: app=sonarr
     gethomepage.dev/widget.type: sonarr
     gethomepage.dev/widget.url: http://sonarr.movies:8989
-    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
 spec:
   entryPoints:
     - web

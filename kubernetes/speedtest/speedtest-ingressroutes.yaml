@@ -13,7 +13,6 @@ metadata:
     gethomepage.dev/pod-selector: app=speedtest
     gethomepage.dev/widget.type: myspeed
     gethomepage.dev/widget.url: http://speedtest.speedtest:5216
-    # gethomepage.dev/widget.password: ""
 spec:
   entryPoints:
     - web

@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/pod-selector: app=plex
     gethomepage.dev/widget.type: plex
     gethomepage.dev/widget.url: http://plex.plex:32400
-    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_PLEX_TOKEN}}"
 spec:
   entryPoints:
     - web

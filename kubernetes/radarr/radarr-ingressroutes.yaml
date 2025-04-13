@@ -12,8 +12,8 @@ metadata:
     gethomepage.dev/group: Media Management
     gethomepage.dev/pod-selector: app=radarr
     gethomepage.dev/widget.type: radarr
-    gethomepage.dev/widget.url: radarr.movies:7878
-    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.url: http://radarr.movies:7878
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
 spec:
   entryPoints:
     - web

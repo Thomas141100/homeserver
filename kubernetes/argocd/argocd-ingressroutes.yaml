@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/pod-selector: app=argocd
     gethomepage.dev/widget.type: argocd
     gethomepage.dev/widget.url: http://argocd-server.argocd:80
-    gethomepage.dev/widget.key: ""
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_ARGOCD_TOKEN}}"
 spec:
   entryPoints:
     - web

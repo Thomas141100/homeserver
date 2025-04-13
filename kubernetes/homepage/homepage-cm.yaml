@@ -16,8 +16,8 @@ data:
   custom.js: ""
   bookmarks.yaml: ""
   services.yaml: |
-    # - Media
-    # - Media Management
+    # - Media:
+    # - Media Management:
     - Network:
       - Router:
           icon: watchyourlan.png
