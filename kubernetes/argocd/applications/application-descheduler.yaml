@@ -16,15 +16,16 @@ spec:
           profiles:
             - name: DeleteFailingQbittorrent
               pluginConfig:
-                - name: "RemoveFailedPods"
+                - name: "RemovePodsHavingTooManyRestarts"
                   args:
+                    podRestartThreshold: 2
                     namespaces:
                       include:
                         - qbittorrent
               plugins:
                 deschedule:
                   enabled:
-                    - "RemoveFailedPods"
+                    - "RemovePodsHavingTooManyRestarts"
   syncPolicy:
     automated: {}
     syncOptions:
