@@ -6,26 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: descheduler
-    repoURL: https://kubernetes-sigs.github.io/descheduler/
-    targetRevision: 0.32.2
-    helm:
-      valuesObject:
-        kind: CronJob
-        deschedulerPolicy:
-          profiles:
-            - name: DeleteFailingQbittorrent
-              pluginConfig:
-                - name: "RemovePodsHavingTooManyRestarts"
-                  args:
-                    podRestartThreshold: 2
-                    namespaces:
-                      include:
-                        - qbittorrent
-              plugins:
-                deschedule:
-                  enabled:
-                    - "RemovePodsHavingTooManyRestarts"
+    path: kubernetes/descheduler
+    repoURL: 'https://github.com/Thomas141100/homeserver.git'
+    targetRevision: main
   syncPolicy:
     automated: {}
     syncOptions:
