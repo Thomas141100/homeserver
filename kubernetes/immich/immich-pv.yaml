@@ -9,7 +9,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: /home/thelegend27/Images
+    path: /mnt/media/immich
   storageClassName: hostpath
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
