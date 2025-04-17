@@ -7,11 +7,14 @@ data:
   kubernetes.yaml: |
     mode: cluster
     traefik: true
-  settings.yaml: ""
-  #settings.yaml: |
-  #  providers:
-  #    longhorn:
-  #      url: https://longhorn.my.network
+  settings.yaml: |
+    providers:
+      openweathermap: openweathermapapikey
+      weatherapi: weatherapiapikey
+
+    theme: dark
+    color: stone
+    favicon: /icons/icons/favicon.ico
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: ""
