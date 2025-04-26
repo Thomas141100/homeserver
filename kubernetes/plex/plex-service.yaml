@@ -4,12 +4,13 @@ metadata:
   name: plex
   namespace: plex
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: plex
   ports:
     - port: 32400
       name: http
+      nodePort: 32400
     - port: 1900
       name: dlna-udp
     - port: 32469
