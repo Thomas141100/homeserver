@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: router
+  name: flaresolverr
   namespace: argocd
 spec:
   project: default
   source:
-    path: kubernetes/router
+    path: kubernetes/flaresolverr
     repoURL: 'https://github.com/Thomas141100/homeserver.git'
     targetRevision: main
   syncPolicy:
@@ -15,4 +15,4 @@ spec:
       - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
-    namespace: glinet-router
+    namespace: movies
