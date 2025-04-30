@@ -13,6 +13,7 @@ spec:
       secret:
         name: pgvectors-immich-secrets
       postInitApplicationSQL:
+        - ALTER USER immich WITH SUPERUSER;
         - CREATE EXTENSION IF NOT EXISTS "vectors";
         - CREATE EXTENSION IF NOT EXISTS cube;
         - CREATE EXTENSION IF NOT EXISTS earthdistance;
