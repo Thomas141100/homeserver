@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jellyfin-ingress
+  namespace: cert-manager
+  annotations:
+    gethomepage.dev/href: https://jellyfin.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Jellyfin
+    gethomepage.dev/description: Media Server
+    gethomepage.dev/icon: jellyfin.png
+    gethomepage.dev/group: Media
+    gethomepage.dev/pod-selector: app=jellyfin
+    gethomepage.dev/widget.type: jellyfin
+    gethomepage.dev/widget.url: http://jellyfin.jellyfin:8096
+    gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_JELLYFIN_TOKEN}}"
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`jellyfin.admin.thelegend27.fr`)
+      # middlewares:
+      #   - name: forwardauth-authelia
+      #     namespace: traefik
+      services:
+        - name: jellyfin
+          namespace: jellyfin
+          port: 8096
+
+  tls:
+    secretName: wildcard-admin-thelegend27-tls

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: jellyfin
+          image: jellyfin/jellyfin
+          imagePullPolicy: Always
+          env:
+            - name: JELLYFIN_PublishedServerUrl
+              value: "http://jellyfin.admin.thelegend27.fr"
+          volumeMounts:
+            - name: jellyfin-config
+              mountPath: /config
+            - name: jellyfin-series
+              mountPath: /series
+            - name: jellyfin-movies
+              mountPath: /movies
+            - name: jellyfin-pictures
+              mountPath: /pictures
+          ports:
+            - containerPort: 8096
+      volumes:
+        - name: jellyfin-config
+          hostPath:
+            path: /home/thelegend27/homeserver/kubernetes/jellyfin/config
+        - name: jellyfin-movies
+          hostPath:
+            path: /mnt/media/movies
+        - name: jellyfin-pictures
+          hostPath:
+            path: /mnt/media/pictures
+        - name: jellyfin-series
+          hostPath:
+            path: /mnt/media/series

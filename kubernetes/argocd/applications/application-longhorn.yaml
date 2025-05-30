@@ -5,18 +5,19 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: longhorn
-    repoURL: https://charts.longhorn.io
-    targetRevision: v1.8.1
-    helm:
-      valuesObject:
-        defaultSettings:
-          replicaAutoBalance: best-effort
-        preUpgradeChecker:
-          jobEnabled: false
-    # helm:
-    #   parameters:
+  sources:
+    - repoURL: 'https://github.com/Thomas141100/homeserver.git'
+      path: kubernetes/longhorn
+      targetRevision: main
+    - repoURL: https://charts.longhorn.io
+      chart: longhorn
+      targetRevision: v1.8.1
+      helm:
+        valuesObject:
+          defaultSettings:
+            replicaAutoBalance: best-effort
+          preUpgradeChecker:
+            jobEnabled: false
   syncPolicy:
     automated: {}
     syncOptions:
