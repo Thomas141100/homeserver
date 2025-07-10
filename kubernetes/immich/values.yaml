@@ -5,7 +5,6 @@
 # These entries are shared between all the Immich components
 
 env:
-  DB_SKIP_MIGRATIONS: true
   REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
   DB_HOSTNAME: "pgvectors-immich-rw"
   DB_DATABASE_NAME: "immich"
@@ -22,7 +21,7 @@ env:
   IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
 image:
-  tag: v1.131.3
+  tag: v1.135.3
 
 immich:
   metrics:
