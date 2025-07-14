@@ -35,7 +35,7 @@ spec:
               value: https://torrent.admin.thelegend27.fr
           ports:
             - containerPort: 8080
-            - containerPort: 8999
+            - containerPort: 63202
           securityContext:
             capabilities:
               add:

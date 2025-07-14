@@ -11,4 +11,4 @@ spec:
     - name: "http"
       port: 8080
     - name: "bittorrent"
-      port: 8999
+      port: 63202
