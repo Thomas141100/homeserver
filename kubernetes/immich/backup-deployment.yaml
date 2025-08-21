@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-db-dumper
+  namespace: immich
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-db-dumper
+  template:
+    metadata:
+      labels:
+        app: immich-db-dumper
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: immich-db-dumper
+          image: prodrigestivill/postgres-backup-local:latest
+          env:
+            - name: POSTGRES_HOST
+              value: pgvectors-immich-rw
+            - name: POSTGRES_DB
+              value: immich
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pgvectors-immich-secrets
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgvectors-immich-secrets
+                  key: password
+            - name: SCHEDULE
+              value: "@daily"
+            - name: BACKUP_DIR
+              value: /db-dumps
+            - name: BACKUP_KEEP_DAYS
+              value: "1"
+            - name: BACKUP_KEEP_WEEKS
+              value: "4"
+            - name: BACKUP_KEEP_MONTHS
+              value: "6"
+          volumeMounts:
+            - mountPath: /db-dumps
+              name: db-dumps
+      volumes:
+        - name: db-dumps
+          hostPath:
+            path: /mnt/media/backup/immich
