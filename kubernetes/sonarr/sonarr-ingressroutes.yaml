@@ -21,9 +21,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`sonarr.admin.thelegend27.fr`)
-      # middlewares:
-      #   - name: forwardauth-authelia
-      #     namespace: traefik
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
         - name: sonarr
           namespace: movies

@@ -1,19 +1,20 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authelia-ingress
+  name: traefik-forward-auth-ingress
   namespace: cert-manager
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - kind: Rule
       match: Host(`auth.admin.thelegend27.fr`)
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
-        - name: authelia
-          namespace: authelia
-          port: 80
-
+        - name: traefik-forward-auth
+          namespace: traefik
+          port: 4181
   tls:
     secretName: wildcard-admin-thelegend27-tls

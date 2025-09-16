@@ -10,6 +10,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`admin.thelegend27.fr`)
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
         - name: homepage
           namespace: homepage

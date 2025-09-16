@@ -22,9 +22,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`torrent.admin.thelegend27.fr`)
-      # middlewares:
-      #   - name: forwardauth-authelia
-      #     namespace: traefik
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
         - name: qbittorrent-wireguard
           namespace: qbittorrent

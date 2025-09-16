@@ -21,9 +21,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`radarr.admin.thelegend27.fr`)
-      # middlewares:
-      #   - name: forwardauth-authelia
-      #     namespace: traefik
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
         - name: radarr
           namespace: movies

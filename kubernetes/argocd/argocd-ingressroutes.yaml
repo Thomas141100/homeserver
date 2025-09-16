@@ -22,6 +22,9 @@ spec:
     - kind: Rule
       match: Host(`argocd.admin.thelegend27.fr`)
       # priority: 10
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
       services:
         - name: argocd-server
           namespace: argocd
