@@ -17,6 +17,7 @@ spec:
       containers:
         - name: qbittorrent-wireguard
           image: docker.io/tenseiken/qbittorrent-wireguard:latest
+          imagePullPolicy: Always
           command:
             - /bin/bash
             - /start.sh
