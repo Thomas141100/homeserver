@@ -16,24 +16,24 @@ spec:
       restartPolicy: Always
       containers:
         - name: qbittorrent-wireguard
-          image: docker.io/tenseiken/qbittorrent-wireguard:latest
+          image: docker.io/tenseiken/qbittorrent-wireguard:5.1.2
           imagePullPolicy: Always
           command:
             - /bin/bash
             - /start.sh
           env:
             - name: LAN_NETWORK
-              value: 192.168.1.0/24
+              value: 192.168.1.0/24,192.168.8.0/24
             - name: PGID
               value: "1000"
             - name: PUID
               value: "1000"
             - name: QBT_LEGAL_NOTICE
               value: confirm
-            - name: QBT_TorrentManage_SavePath
-              value: /media/downloads
-            - name: WEBUI_URL
-              value: https://torrent.admin.thelegend27.fr
+            - name: RESTART_CONTAINER
+              value: "yes"
+            - name: ADDITIONAL_PORTS
+              value: "63202"
           ports:
             - containerPort: 8080
             - containerPort: 63202
@@ -41,7 +41,6 @@ spec:
             capabilities:
               add:
                 - NET_ADMIN
-            privileged: true
           # livenessProbe:
           #   httpGet:
           #     path: /index.html
