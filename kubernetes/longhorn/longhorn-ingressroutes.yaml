@@ -11,11 +11,6 @@ metadata:
     gethomepage.dev/icon: longhorn.png
     gethomepage.dev/group: Administration
     gethomepage.dev/pod-selector: app=longhorn-ui
-    gethomepage.dev/widget.type: longhorn
-    gethomepage.dev/widget.expanded: 'true'
-    gethomepage.dev/widget.total: 'true'
-    gethomepage.dev/widget.labels: 'true'
-    gethomepage.dev/widget.nodes: 'true'
 spec:
   entryPoints:
     - web
