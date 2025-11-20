@@ -11,6 +11,8 @@ data:
     providers:
       openweathermap: openweathermapapikey
       weatherapi: weatherapiapikey
+      longhorn:
+        url: http://longhorn-frontend.longhorn-system:80
 
     theme: dark
     color: stone

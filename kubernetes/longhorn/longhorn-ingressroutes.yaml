@@ -4,6 +4,18 @@ metadata:
   name: longhorn-ingress
   namespace: cert-manager
   annotations:
+    gethomepage.dev/href: https://longhorn.admin.thelegend27.fr
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/description: Distributed Block Storage
+    gethomepage.dev/icon: longhorn.png
+    gethomepage.dev/group: Administration
+    gethomepage.dev/pod-selector: app=longhorn-ui
+    gethomepage.dev/widget.type: longhorn
+    gethomepage.dev/widget.expanded: 'true'
+    gethomepage.dev/widget.total: 'true'
+    gethomepage.dev/widget.labels: 'true'
+    gethomepage.dev/widget.nodes: 'true'
 spec:
   entryPoints:
     - web
