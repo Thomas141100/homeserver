@@ -30,8 +30,8 @@ spec:
               value: "1000"
             - name: QBT_LEGAL_NOTICE
               value: confirm
-            - name: RESTART_CONTAINER
-              value: "yes"
+#            - name: RESTART_CONTAINER
+#              value: "yes"
             - name: ADDITIONAL_PORTS
               value: "63202"
           ports:
