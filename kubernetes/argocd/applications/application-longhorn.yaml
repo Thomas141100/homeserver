@@ -11,7 +11,7 @@ spec:
       targetRevision: main
     - repoURL: https://charts.longhorn.io
       chart: longhorn
-      targetRevision: v1.8.1
+      targetRevision: v1.9.2
       helm:
         valuesObject:
           defaultSettings:
