@@ -12,7 +12,7 @@ spec:
   sources:
   - repoURL: 'https://github.com/Thomas141100/homeserver.git'
     path: kubernetes/argocd/applications
-    targetRevision: main
+    targetRevision: lenovotiny
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
