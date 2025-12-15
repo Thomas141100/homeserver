@@ -9,7 +9,7 @@ controllers:
     containers:
       main:
         image:
-          tag: v2.0.0
+          tag: v2.3.1
         env:
           REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
           IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
@@ -80,6 +80,12 @@ server:
           image:
             repository: ghcr.io/immich-app/immich-server
             pullPolicy: IfNotPresent
+  persistence:
+    external:
+      enabled: true
+      existingClaim: immich-external
+      path: /usr/src/app/external
+      readOnly: true
   ingress:
     main:
       enabled: false
