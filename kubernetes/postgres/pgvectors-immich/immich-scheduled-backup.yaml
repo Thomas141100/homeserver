@@ -1,12 +1,12 @@
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/scheduledbackup_v1.json
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-  name: pgvectors-immich-daily-backup
-  namespace: immich
-spec:
-  schedule: "@daily"
-  backupOwnerReference: self
-  cluster:
-    name: pgvectors-immich
+# ---
+# # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/scheduledbackup_v1.json
+# apiVersion: postgresql.cnpg.io/v1
+# kind: ScheduledBackup
+# metadata:
+#   name: pgvectors-immich-daily-backup
+#   namespace: immich
+# spec:
+#   schedule: "@daily"
+#   backupOwnerReference: self
+#   cluster:
+#     name: pgvectors-immich

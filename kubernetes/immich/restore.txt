@@ -1,3 +1,5 @@
 docker exec -t immich_postgres pg_dump -d immich --clean --if-exists --username=postgres --no-owner | gzip > "dump.sql.gz"
 
+kubectl run -n immich psql --rm -it --restart=Never --image=postgres:16 -- bash
+
 gunzip --stdout dump.sql.gz | k exec -it -n authelia services/postgres-authelia-cluster-rw  -- psql postgresql://immich:immich@pgvectors-immich-rw.immich.svc.cluster.local/immich

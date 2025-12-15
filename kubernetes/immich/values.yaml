@@ -51,7 +51,7 @@ immich:
 # Dependencies
 
 valkey:
-  enabled: false
+  enabled: true
   controllers:
     main:
       containers:

@@ -9,17 +9,21 @@ spec:
   storage:
     size: 1Gi
 
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.4.3
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:14-0.3.0
 
   postgresql:
     shared_preload_libraries:
-      - "vchord.so"
+      - 'vchord.so'
+
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: pgvectors-immich-secrets
 
   bootstrap:
     initdb:
+      database: immich
+      owner: immich
       # TODO: Use managed extensions (pg 18)
-      secret:
-        name: pgvectors-immich-secrets
       postInitApplicationSQL:
         # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
         - CREATE EXTENSION vchord CASCADE;
