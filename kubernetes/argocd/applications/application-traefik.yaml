@@ -11,7 +11,7 @@ spec:
       targetRevision: lenovotiny
     - chart: traefik
       repoURL: https://traefik.github.io/charts
-      targetRevision: 34.4.1
+      targetRevision: 37.4.0
       helm:
         valuesObject:
           providers:
@@ -20,10 +20,8 @@ spec:
           ports:
             web:
               port: 80
-              hostPort: 80
             websecure:
               port: 443
-              hostPort: 443
               # tls:
               #   enabled: true
           # certificatesResolvers:
