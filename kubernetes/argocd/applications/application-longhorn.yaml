@@ -16,6 +16,8 @@ spec:
         valuesObject:
           defaultSettings:
             replicaAutoBalance: best-effort
+            defaultDataPath: /mnt/longhorn
+            defaultReplicaCount: 3
           preUpgradeChecker:
             jobEnabled: false
   syncPolicy:
