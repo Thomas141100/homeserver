@@ -5,40 +5,43 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    chart: traefik
-    repoURL: https://traefik.github.io/charts
-    targetRevision: 34.4.1
-    helm:
-      valuesObject:
-        providers:
-          kubernetesCRD:
-            allowCrossNamespace: true
-        ports:
-          web:
-            port: 80
-          websecure:
-            port: 443
-            # tls:
-            #   enabled: true
-        # certificatesResolvers:
-        #   letsencrypt:
-        #     acme:
-        #       dnsChallenge:
-        #         provider: cloudflare
-        #       storage: /data/acme.json
-        # env:
-        #   - name: CF_DNS_API_TOKEN
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: cloudflare
-        #         key: token
-        additionalArguments:
-          - --api.insecure=true
-          - --accesslog=true
-        #   - --entryPoints.web.http.redirections.entryPoint.to=websecure
-        #   - --entryPoints.web.http.redirections.entryPoint.scheme=https
-        #   - --entryPoints.web.http.redirections.entryPoint.permanent=true
+  sources:
+    - repoURL: 'https://github.com/Thomas141100/homeserver.git'
+      path: kubernetes/traefik
+      targetRevision: lenovotiny
+    - chart: traefik
+      repoURL: https://traefik.github.io/charts
+      targetRevision: 34.4.1
+      helm:
+        valuesObject:
+          providers:
+            kubernetesCRD:
+              allowCrossNamespace: true
+          ports:
+            web:
+              port: 80
+            websecure:
+              port: 443
+              # tls:
+              #   enabled: true
+          # certificatesResolvers:
+          #   letsencrypt:
+          #     acme:
+          #       dnsChallenge:
+          #         provider: cloudflare
+          #       storage: /data/acme.json
+          # env:
+          #   - name: CF_DNS_API_TOKEN
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: cloudflare
+          #         key: token
+          additionalArguments:
+            - --api.insecure=true
+            - --accesslog=true
+          #   - --entryPoints.web.http.redirections.entryPoint.to=websecure
+          #   - --entryPoints.web.http.redirections.entryPoint.scheme=https
+          #   - --entryPoints.web.http.redirections.entryPoint.permanent=true
   syncPolicy:
     automated: {}
     syncOptions:
