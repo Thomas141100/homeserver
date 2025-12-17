@@ -8,11 +8,11 @@ spec:
   source:
     path: kubernetes/router
     repoURL: 'https://github.com/Thomas141100/homeserver.git'
-    targetRevision: main
+    targetRevision: lenovotiny
   syncPolicy:
     automated: {}
     syncOptions:
       - CreateNamespace=true
   destination:
     server: https://kubernetes.default.svc
-    namespace: glinet-router
+    namespace: router

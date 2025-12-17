@@ -8,7 +8,7 @@ spec:
   source:
     path: kubernetes/radarr
     repoURL: 'https://github.com/Thomas141100/homeserver.git'
-    targetRevision: main
+    targetRevision: lenovotiny
   syncPolicy:
     automated: {}
     syncOptions:

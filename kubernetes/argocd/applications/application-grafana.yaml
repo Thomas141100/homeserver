@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/grafana
-      targetRevision: main
+      targetRevision: lenovotiny
     - repoURL: https://grafana.github.io/helm-charts
       chart: grafana
       targetRevision: 8.11.1
