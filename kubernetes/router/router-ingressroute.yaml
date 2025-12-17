@@ -14,8 +14,11 @@ spec:
         - name: traefik-forward-auth
           namespace: traefik
       services:
-        - name: glinet-router
-          namespace: glinet-router
+        # - name: glinet-router
+        #   namespace: router
+        #   port: 80
+        - name: orange-router
+          namespace: router
           port: 80
 
   tls:
