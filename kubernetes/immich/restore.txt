@@ -1,5 +1,12 @@
 docker exec -t immich_postgres pg_dump -d immich --clean --if-exists --username=postgres --no-owner | gzip > "dump.sql.gz"
 
+# Create debug pod
 kubectl run -n immich psql --rm -it --restart=Never --image=postgres:16 -- bash
 
-gunzip --stdout dump.sql.gz | k exec -it -n authelia services/postgres-authelia-cluster-rw  -- psql postgresql://immich:immich@pgvectors-immich-rw.immich.svc.cluster.local/immich
+# Backup (old db)
+kubectlk exec -n immich immich-db-1 -it -- pg_dumpall --clean --if-exists --username=postgres | gzip > "dump.sql.gz"
+
+# Restore (new db on new namespace)
+gunzip --stdout "dump.sql.gz" \
+    | sed "s/SELECT pg_catalog.set_config('search_path', '', false);/SELECT pg_catalog.set_config('search_path', 'public, pg_catalog', true);/g" \
+    | kubectl exec -n immich pgvectors-immich -it -- psql --dbname=postgres --username=postgres
