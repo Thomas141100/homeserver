@@ -33,10 +33,10 @@ spec:
 #            - name: RESTART_CONTAINER
 #              value: "yes"
             - name: ADDITIONAL_PORTS
-              value: "63202"
+              value: "32123"
           ports:
             - containerPort: 8080
-            - containerPort: 63202
+            - containerPort: 32123
           securityContext:
             capabilities:
               add:
