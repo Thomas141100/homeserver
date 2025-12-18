@@ -4,12 +4,11 @@ metadata:
   name: qbittorrent-wireguard
   namespace: qbittorrent
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: qbittorrent-wireguard
   ports:
     - name: "http"
       port: 8080
     - name: "bittorrent"
-      port: 32123
-      nodePort: 32123
+      port: 63202

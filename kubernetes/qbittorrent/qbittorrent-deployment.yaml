@@ -5,6 +5,8 @@ metadata:
   namespace: qbittorrent
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: qbittorrent-wireguard
@@ -33,10 +35,10 @@ spec:
 #            - name: RESTART_CONTAINER
 #              value: "yes"
             - name: ADDITIONAL_PORTS
-              value: "32123"
+              value: "63202"
           ports:
             - containerPort: 8080
-            - containerPort: 32123
+            - containerPort: 63202
           securityContext:
             capabilities:
               add:
