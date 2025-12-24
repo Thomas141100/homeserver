@@ -16,7 +16,7 @@ data:
               evictLocalStoragePods: true
           - name: "RemovePodsHavingTooManyRestarts"
             args:
-              podRestartThreshold: 2
+              podRestartThreshold: 1
               namespaces:
                 include:
                   - qbittorrent
