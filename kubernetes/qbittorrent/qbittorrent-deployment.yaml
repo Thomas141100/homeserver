@@ -43,16 +43,16 @@ spec:
             capabilities:
               add:
                 - NET_ADMIN
-          # livenessProbe:
-          #   httpGet:
-          #     path: /index.html
-          #     port: 80
-          #     scheme: HTTP
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 5
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 6
           stdin: true
           tty: true
           volumeMounts:
