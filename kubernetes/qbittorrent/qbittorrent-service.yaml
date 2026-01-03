@@ -12,3 +12,18 @@ spec:
       port: 8080
     - name: "bittorrent"
       port: 63202
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-gluetun
+  namespace: qbittorrent
+spec:
+  type: ClusterIP
+  selector:
+    app: qbittorrent-gluetun
+  ports:
+    - name: "http"
+      port: 8080
+    - name: "bittorrent"
+      port: 63202

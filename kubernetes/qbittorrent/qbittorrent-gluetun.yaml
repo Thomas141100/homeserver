@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent-gluetun
+  namespace: qbittorrent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent-gluetun
+  template:
+    metadata:
+      labels:
+        app: qbittorrent-gluetun
+    spec:
+      containers:
+        - name: gluetun
+          image: qmcgaw/gluetun:latest
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          envFrom:
+            - secretRef:
+                name: airvpn-wireguard
+          ports:
+            - containerPort: 8080   # qBittorrent WebUI (via gluetun)
+            - containerPort: 63202
+
+        - name: qbittorrent
+          image: lscr.io/linuxserver/qbittorrent:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Paris"
+            - name: WEBUI_PORT
+              value: "8080"
+            - name: TORRENTING_PORT
+              value: "63202"
+          volumeMounts:
+            - mountPath: /config
+              name: qbittorrent-config
+            - mountPath: /media
+              name: qbittorrent-media
+      volumes:
+        - name: qbittorrent-config
+          hostPath:
+            path: /home/thelegend27/homeserver/qbittorrent/gluetun
+        - name: qbittorrent-media
+          hostPath:
+            path: /mnt/media

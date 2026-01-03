@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pihole-dnsmasq
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /home/thelegend27/kubernetes/pihole/dnsmasq
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pihole-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /home/thelegend27/kubernetes/pihole/pihole
+  storageClassName: hostpath
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
