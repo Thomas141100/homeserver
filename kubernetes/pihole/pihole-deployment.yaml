@@ -1,78 +1,78 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: pihole
-  namespace: pihole
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  selector:
-    matchLabels:
-      app: pihole
-  template:
-    metadata:
-      labels:
-        app: pihole
-    spec:
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      containers:
-        - name: pihole
-          image: pihole/pihole:latest
-          imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "50Mi"
-              cpu: "250m"
-            limits:
-              memory: "100Mi"
-              cpu: "500m"
-          env:
-            - name: TZ
-              value: "Europe/Paris"
-            - name: WEBPASSWORD
-              value: nojunk
-            - name: DNS1
-              value: 127.0.0.1#5053
-            - name: DNSMASQ_LISTENING
-              value: all
-            - name: FTLCONF_CHECK_DISK
-              value: "0"
-          ports:
-            - containerPort: 53
-              name: pihole-dns-tcp
-              protocol: TCP
-            - containerPort: 53
-              name: pihole-dns-udp
-              protocol: UDP
-            - containerPort: 67
-              name: pihole-67-udp
-              protocol: UDP
-            - containerPort: 80
-              name: http
-              protocol: TCP
-            - containerPort: 443
-              name: https
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /etc/pihole
-              name: pihole-config
-            - mountPath: /etc/dnsmasq.d
-              name: pihole-dnsmasq
-      volumes:
-        - name: pihole-config
-          persistentVolumeClaim:
-            claimName: pihole-config
-        - name: pihole-dnsmasq
-          persistentVolumeClaim:
-            claimName: pihole-dnsmasq
-        - name: pihole-custom-list
-          configMap:
-            name: pihole-custom-list
-        - name: pihole-adlists-list
-          configMap:
-            name: pihole-adlists-list
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: pihole
+#   namespace: pihole
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate:
+#       maxSurge: 1
+#       maxUnavailable: 1
+#     type: RollingUpdate
+#   selector:
+#     matchLabels:
+#       app: pihole
+#   template:
+#     metadata:
+#       labels:
+#         app: pihole
+#     spec:
+#       dnsPolicy: ClusterFirst
+#       restartPolicy: Always
+#       containers:
+#         - name: pihole
+#           image: pihole/pihole:latest
+#           imagePullPolicy: Always
+#           resources:
+#             requests:
+#               memory: "50Mi"
+#               cpu: "250m"
+#             limits:
+#               memory: "100Mi"
+#               cpu: "500m"
+#           env:
+#             - name: TZ
+#               value: "Europe/Paris"
+#             - name: WEBPASSWORD
+#               value: nojunk
+#             - name: DNS1
+#               value: 127.0.0.1#5053
+#             - name: DNSMASQ_LISTENING
+#               value: all
+#             - name: FTLCONF_CHECK_DISK
+#               value: "0"
+#           ports:
+#             - containerPort: 53
+#               name: pihole-dns-tcp
+#               protocol: TCP
+#             - containerPort: 53
+#               name: pihole-dns-udp
+#               protocol: UDP
+#             - containerPort: 67
+#               name: pihole-67-udp
+#               protocol: UDP
+#             - containerPort: 80
+#               name: http
+#               protocol: TCP
+#             - containerPort: 443
+#               name: https
+#               protocol: TCP
+#           volumeMounts:
+#             - mountPath: /etc/pihole
+#               name: pihole-config
+#             - mountPath: /etc/dnsmasq.d
+#               name: pihole-dnsmasq
+#       volumes:
+#         - name: pihole-config
+#           persistentVolumeClaim:
+#             claimName: pihole-config
+#         - name: pihole-dnsmasq
+#           persistentVolumeClaim:
+#             claimName: pihole-dnsmasq
+#         - name: pihole-custom-list
+#           configMap:
+#             name: pihole-custom-list
+#         - name: pihole-adlists-list
+#           configMap:
+#             name: pihole-adlists-list

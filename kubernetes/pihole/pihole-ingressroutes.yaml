@@ -1,0 +1,22 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole-ingress
+  namespace: cert-manager
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`pihole.admin.thelegend27.fr`)
+      middlewares:
+        - name: traefik-forward-auth
+          namespace: traefik
+      services:
+        - name: pihole
+          namespace: pihole
+          port: 8443
+
+  tls:
+    secretName: admin-thelegend27-tls

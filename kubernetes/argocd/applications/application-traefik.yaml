@@ -24,7 +24,7 @@ spec:
               port: 443
           additionalArguments:
             - --api.insecure=true
-            # - --accesslog=true
+            - --accesslog=true
             - --entryPoints.web.http.redirections.entryPoint.to=websecure
             - --entryPoints.web.http.redirections.entryPoint.scheme=https
             - --entryPoints.web.http.redirections.entryPoint.permanent=true
