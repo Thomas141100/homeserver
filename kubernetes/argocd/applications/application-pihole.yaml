@@ -24,8 +24,8 @@ spec:
             enabled: false
 
           serviceDns:
-            # mixedService: true
-            externalTrafficPolicy: Cluster
+            mixedService: true
+            # externalTrafficPolicy: Cluster
             type: LoadBalancer
             port: 53
 
@@ -53,6 +53,7 @@ spec:
             sidecar:
               enabled: false
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

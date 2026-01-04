@@ -14,9 +14,9 @@ spec:
         - name: traefik-forward-auth
           namespace: traefik
       services:
-        - name: pihole
+        - name:  pihole-web
           namespace: pihole
-          port: 8443
+          port: 8080
 
   tls:
     secretName: admin-thelegend27-tls
