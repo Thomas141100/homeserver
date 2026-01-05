@@ -29,6 +29,12 @@ spec:
         - name: qbittorrent-gluetun
           namespace: qbittorrent
           port: 8080
+    - kind: Rule
+      match: Host(`torrent.lenovotiny`)
+      services:
+        - name: qbittorrent-gluetun
+          namespace: qbittorrent
+          port: 8080
 
   tls:
     secretName: wildcard-admin-thelegend27-tls
