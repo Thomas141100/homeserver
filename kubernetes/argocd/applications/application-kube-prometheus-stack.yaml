@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # - repoURL: 'https://github.com/Thomas141100/homeserver.git'
+    #   path: kubernetes/kube-prometheus-stack
+    #   targetRevision: lenovotiny
+    #   ref: values
+    - chart: kube-prometheus-stack
+      repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: 80.12.1
+      # helm:
+      #   valueFiles:
+      #     - $values/kubernetes/kube-prometheus-stack/values.yaml
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
