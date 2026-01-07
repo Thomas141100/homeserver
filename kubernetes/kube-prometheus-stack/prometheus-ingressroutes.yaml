@@ -9,10 +9,10 @@ metadata:
     gethomepage.dev/name: Prometheus
     gethomepage.dev/description: Event monitoring and alerting
     gethomepage.dev/icon: prometheus.png
-    gethomepage.dev/group: Monitoring
-    gethomepage.dev/pod-selector: app=prometheus
+    gethomepage.dev/group: Administration
+    gethomepage.dev/pod-selector: app.kubernetes.io/name=prometheus
     gethomepage.dev/widget.type: prometheus
-    gethomepage.dev/widget.url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+    gethomepage.dev/widget.url: http://kube-prometheus-stack-prometheus.monitoring:9090
 spec:
   entryPoints:
     - web
@@ -24,7 +24,7 @@ spec:
       #   - name: forwardauth-authelia
       #     namespace: traefik
       services:
-        - name: prometheus-kube-prometheus-prometheus
+        - name: kube-prometheus-stack-prometheus
           namespace: monitoring
           port: 9090
 
