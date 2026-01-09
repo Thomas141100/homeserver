@@ -3,3 +3,8 @@ grafana:
     existingSecret: "grafana-admin-credentials"
     userKey: admin-user
     passwordKey: admin-password
+
+  persistence:
+    enabled: true
+    type: pvc
+    existingClaim: grafana-data
