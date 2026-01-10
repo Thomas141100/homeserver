@@ -1,0 +1,21 @@
+minecraftServer:
+  eula: "true"
+  serviceType: LoadBalancer
+
+persistence:
+  labels: {}
+  annotations: {}
+  ## specify an alternative volume to be mounted to /data instead of datadir.
+  # altDataVolumeName: ""
+  ## minecraft data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  dataDir:
+    # Set this to false if you don't care to persist state between restarts.
+    enabled: true
+    existingClaim: minecraft-data
