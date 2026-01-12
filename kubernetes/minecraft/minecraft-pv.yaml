@@ -9,7 +9,7 @@ spec:
   capacity:
     storage: 1Gi
   hostPath:
-    path: /mnt/media/minecraft
+    path: /mnt/minecraft
   storageClassName: hostpath
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain

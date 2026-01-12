@@ -1,6 +1,15 @@
 minecraftServer:
   eula: "true"
   serviceType: LoadBalancer
+  autoCurseForge:
+    apiKey:
+      existingSecret: "minecraft-secrets"
+      secretKey: CF_API_KEY
+  rcon:
+    # If you enable this, make SURE to change your password below.
+    enabled: true
+    existingSecret: "minecraft-secrets"
+    secretKey: RCON_PASSWORD
 
 persistence:
   labels: {}
@@ -19,3 +28,29 @@ persistence:
     # Set this to false if you don't care to persist state between restarts.
     enabled: true
     existingClaim: minecraft-data
+
+envFrom:
+  - secretRef:
+      name: minecraft-secrets
+
+livenessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  failureThreshold: 20
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  command:
+    - mc-health
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  failureThreshold: 200
+  successThreshold: 1
+  timeoutSeconds: 1
+startupProbe:
+  command:
+    - mc-health
+  enabled: false
+  failureThreshold: 30
