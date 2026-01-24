@@ -4,11 +4,11 @@ metadata:
   name: timemachine-config
   namespace: timemachine
 data:
-  ADVERTISED_HOSTNAME: ""
+  # ADVERTISED_HOSTNAME: "lenovotiny"
   CUSTOM_SMB_CONF: "false"
   CUSTOM_USER: "false"
   DEBUG_LEVEL: "1"
-  MIMIC_MODEL: "TimeCapsule8,119"
+  # MIMIC_MODEL: "TimeCapsule8,119"
   EXTERNAL_CONF: ""
   HIDE_SHARES: "no"
   TM_USERNAME: "timemachine"
