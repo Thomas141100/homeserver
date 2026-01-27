@@ -1,70 +1,54 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qbittorrent-wireguard
+  name: qbittorrent-gluetun
   namespace: qbittorrent
 spec:
-  replicas: 0
-  strategy:
-    type: Recreate
+  replicas: 1
   selector:
     matchLabels:
-      app: qbittorrent-wireguard
+      app: qbittorrent-gluetun
   template:
     metadata:
       labels:
-        app: qbittorrent-wireguard
+        app: qbittorrent-gluetun
     spec:
-      restartPolicy: Always
       containers:
-        - name: qbittorrent-wireguard
-          image: docker.io/tenseiken/qbittorrent-wireguard:5.1.2
-          imagePullPolicy: Always
-          command:
-            - /bin/bash
-            - /start.sh
-          env:
-            - name: LAN_NETWORK
-              value: 192.168.1.0/24,192.168.8.0/24
-            - name: PGID
-              value: "1000"
-            - name: PUID
-              value: "1000"
-            - name: QBT_LEGAL_NOTICE
-              value: confirm
-#            - name: RESTART_CONTAINER
-#              value: "yes"
-            - name: ADDITIONAL_PORTS
-              value: "63202"
-          ports:
-            - containerPort: 8080
-            - containerPort: 63202
+        - name: gluetun
+          image: qmcgaw/gluetun:v3
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 60
-            timeoutSeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 6
-          stdin: true
-          tty: true
+          envFrom:
+            - secretRef:
+                name: airvpn-wireguard
+          ports:
+            - containerPort: 8080   # qBittorrent WebUI (via gluetun)
+            - containerPort: 63202
+
+        - name: qbittorrent
+          image: lscr.io/linuxserver/qbittorrent:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Paris"
+            - name: WEBUI_PORT
+              value: "8080"
+            - name: TORRENTING_PORT
+              value: "63202"
           volumeMounts:
             - mountPath: /config
               name: qbittorrent-config
             - mountPath: /media
               name: qbittorrent-media
-          workingDir: /opt
       volumes:
         - name: qbittorrent-config
           hostPath:
-            path: /home/thelegend27/homeserver/qbittorrent/config
+            path: /home/thelegend27/homeserver/qbittorrent/gluetun
         - name: qbittorrent-media
           hostPath:
             path: /mnt/media
