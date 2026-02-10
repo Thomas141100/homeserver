@@ -13,29 +13,33 @@ spec:
       labels:
         app: qbittorrent-gluetun
     spec:
+      restartPolicy: Always
       containers:
         - name: gluetun
           image: qmcgaw/gluetun:v3
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
+          imagePullPolicy: Always
           envFrom:
             - secretRef:
                 name: airvpn-wireguard
           ports:
-            - containerPort: 8080   # qBittorrent WebUI (via gluetun)
+            - containerPort: 8080
+              protocol: TCP
             - containerPort: 63202
-
+              protocol: TCP
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
         - name: qbittorrent
           image: lscr.io/linuxserver/qbittorrent:latest
+          imagePullPolicy: Always
           env:
             - name: PUID
               value: "1000"
             - name: PGID
               value: "1000"
             - name: TZ
-              value: "Europe/Paris"
+              value: Europe/Paris
             - name: WEBUI_PORT
               value: "8080"
             - name: TORRENTING_PORT
