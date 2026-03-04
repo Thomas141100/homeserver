@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus-stack
+  name: loki
   namespace: argocd
 spec:
   project: default
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
-      path: kubernetes/kube-prometheus-stack
+      path: kubernetes/loki
       targetRevision: lenovotiny
       ref: values
-    - chart: kube-prometheus-stack
-      repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 82.8.0
+    - chart: loki
+      repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 6.53.0
       helm:
         valueFiles:
-          - $values/kubernetes/kube-prometheus-stack/values.yaml
+          - $values/kubernetes/loki/values.yaml
   syncPolicy:
     automated: {}
     syncOptions:
