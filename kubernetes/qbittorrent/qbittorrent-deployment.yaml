@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qbittorrent-gluetun
+  name: qbittorrent
   namespace: qbittorrent
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qbittorrent-gluetun
+      app: qbittorrent
   template:
     metadata:
       labels:
-        app: qbittorrent-gluetun
+        app: qbittorrent
     spec:
       restartPolicy: Always
       containers:
@@ -30,6 +30,7 @@ spec:
             capabilities:
               add:
                 - NET_ADMIN
+
         - name: qbittorrent
           image: lscr.io/linuxserver/qbittorrent:latest
           imagePullPolicy: Always
@@ -49,6 +50,17 @@ spec:
               name: qbittorrent-config
             - mountPath: /media
               name: qbittorrent-media
+
+        - name: qbittorrent-exporter
+          image: ghcr.io/martabal/qbittorrent-exporter:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: qbittorrent-metrics-exporter
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+
       volumes:
         - name: qbittorrent-config
           hostPath:

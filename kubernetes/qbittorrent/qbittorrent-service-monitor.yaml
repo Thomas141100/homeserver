@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: qbittorrent-service-monitor
+  namespace: qbittorrent
+spec:
+  selector:
+    matchLabels:
+      app: qbittorrent
+  endpoints:
+    - interval: 30s
+      port: metrics

@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/group: Media Management
     gethomepage.dev/pod-selector: app=qbittorrent-gluetun
     gethomepage.dev/widget.type: qbittorrent
-    gethomepage.dev/widget.url: http://qbittorrent-gluetun.qbittorrent:8080
+    gethomepage.dev/widget.url: http://qbittorrent.qbittorrent:8080
     gethomepage.dev/widget.username: "{{HOMEPAGE_VAR_QBITTORRENT_USER}}"
     gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}"
 spec:
@@ -26,7 +26,7 @@ spec:
         - name: traefik-forward-auth
           namespace: traefik
       services:
-        - name: qbittorrent-gluetun
+        - name: qbittorrent
           namespace: qbittorrent
           port: 8080
     - kind: Rule
