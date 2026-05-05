@@ -16,8 +16,8 @@ spec:
       restartPolicy: Always
       containers:
         - name: prowlarr
-          # image: lscr.io/linuxserver/prowlarr:latest
-          image: ghcr.io/almottier/prowlarr-ygg
+          image: lscr.io/linuxserver/prowlarr:latest
+          # image: ghcr.io/almottier/prowlarr-ygg
           imagePullPolicy: Always
           env:
             - name: TZ

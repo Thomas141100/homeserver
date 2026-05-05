@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: qbittorrent-service-monitor
   namespace: qbittorrent
+  labels:
+    release: kube-prometheus-stack
 spec:
   selector:
     matchLabels:
