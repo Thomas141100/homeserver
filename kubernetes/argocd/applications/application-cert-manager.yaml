@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/cert-manager
-      targetRevision: lenovotiny
+      targetRevision: main
     - repoURL: https://charts.jetstack.io
       chart: cert-manager
       targetRevision: v1.17.0

@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/loki
-      targetRevision: lenovotiny
+      targetRevision: main
       ref: values
     - chart: loki
       repoURL: https://grafana.github.io/helm-charts

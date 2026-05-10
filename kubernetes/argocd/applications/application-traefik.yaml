@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/traefik
-      targetRevision: lenovotiny
+      targetRevision: main
     - chart: traefik
       repoURL: https://traefik.github.io/charts
       targetRevision: 38.0.1

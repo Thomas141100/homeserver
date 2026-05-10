@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/kube-prometheus-stack
-      targetRevision: lenovotiny
+      targetRevision: main
       ref: values
     - chart: kube-prometheus-stack
       repoURL: https://prometheus-community.github.io/helm-charts

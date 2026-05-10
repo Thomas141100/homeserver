@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/Thomas141100/homeserver.git'
       path: kubernetes/immich
-      targetRevision: lenovotiny
+      targetRevision: main
       ref: values
     - repoURL: https://immich-app.github.io/immich-charts
       chart: immich
