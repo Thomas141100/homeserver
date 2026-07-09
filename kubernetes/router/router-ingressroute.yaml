@@ -14,7 +14,7 @@ spec:
       #   - name: traefik-forward-auth
       #     namespace: traefik
       services:
-        - name: orange-router
+        - name: glinet-router
           namespace: router
           port: 443
           serversTransport: insecure-skip-verify
