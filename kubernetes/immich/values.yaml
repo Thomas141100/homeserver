@@ -9,7 +9,7 @@ controllers:
     containers:
       main:
         image:
-          tag: v3.0.2
+          tag: v3.1.0
         env:
           CPU_CORES: "6"
           REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
