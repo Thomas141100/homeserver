@@ -32,7 +32,7 @@ spec:
     - kind: Rule
       match: Host(`torrent.lenovotiny`)
       services:
-        - name: qbittorrent-gluetun
+        - name: qbittorrent
           namespace: qbittorrent
           port: 8080
 
