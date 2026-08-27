@@ -11,6 +11,8 @@ minecraftServer:
     existingSecret: "minecraft-secrets"
     secretKey: RCON_PASSWORD
 
+replicaCount: 0
+
 persistence:
   labels: {}
   annotations: {}
