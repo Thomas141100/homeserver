@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-assistant
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      restartPolicy: Always
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: home-assistant
+          image: ghcr.io/home-assistant/home-assistant:stable
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8123
+          env:
+            - name: TZ
+              value: "Europe/Paris"
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BROADCAST
+          volumeMounts:
+            - name: home-assistant-config
+              mountPath: /config
+            - name: dbus
+              mountPath: /run/dbus
+              readOnly: true
+            - name: serial-by-id
+              mountPath: /dev/serial/by-id/
+            - name: usb
+              mountPath: /dev/ttyUSB0
+        - name: otbr
+          image: ghcr.io/ownbee/hass-otbr-docker
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BROADCAST
+          env:
+            - name: DEVICE
+              value: /dev/ttyUSB0
+            - name: BACKBONE_IF
+              value: "enp1s0f1"
+            - name: FLOW_CONTROL
+              value: "0"
+            - name: BAUDRATE
+              value: "460800"
+            - name: FIREWALL
+              value: "1"
+            - name: NAT64
+              value: "1"
+            - name: AUTOFLASH_FIRMWARE
+              value: "0"
+          ports:
+            - containerPort: 8081
+              name: rest-api
+          volumeMounts:
+            - name: usb
+              mountPath: /dev/ttyUSB0
+            - name: tun
+              mountPath: /dev/net/tun
+            - name: serial-by-id
+              mountPath: /dev/serial/by-id/
+            - name: otbr-data
+              mountPath: /data
+        - name: matter
+          # image: ghcr.io/matter-js/matterjs-server:latest
+          image: ghcr.io/home-assistant-libs/python-matter-server:stable
+          imagePullPolicy: Always
+          args:
+            - --storage-path
+            - /data
+            - --paa-root-cert-dir
+            - /data/credentials
+            - --primary-interface
+            - enp1s0f1
+          securityContext:
+            privileged: true
+            appArmorProfile:
+              type: Unconfined
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BROADCAST
+          ports:
+            - containerPort: 5580
+              name: web-service
+          volumeMounts:
+            - name: matter-data
+              mountPath: /data
+            - name: dbus
+              mountPath: /run/dbus
+              readOnly: true
+      volumes:
+        - name: home-assistant-config
+          hostPath:
+            path: /home/thelegend27/homeserver/kubernetes/home-assistant/config
+        - name: otbr-data
+          hostPath:
+            path: /home/thelegend27/homeserver/kubernetes/home-assistant/otbr
+        - name: matter-data
+          hostPath:
+            path: /home/thelegend27/homeserver/kubernetes/home-assistant/matter
+        - name: dbus
+          hostPath:
+            path: /run/dbus
+        - name: serial-by-id
+          hostPath:
+            path: /dev/serial/by-id/
+        - name: usb
+          hostPath:
+            path: /dev/ttyUSB0
+        - name: tun
+          hostPath:
+            path: /dev/net/tun
