@@ -10,10 +10,10 @@ spec:
       path: kubernetes/immich
       targetRevision: main
       ref: values
-    - repoURL: https://immich-app.github.io/immich-charts
-      chart: immich
-      targetRevision: 0.10.3
-      helm: 
+    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
+      path: .
+      targetRevision: 0.13.2
+      helm:
         valueFiles:
           - $values/kubernetes/immich/values.yaml
   syncPolicy:
