@@ -18,6 +18,7 @@ spec:
           namespace: router
           port: 443
           serversTransport: insecure-skip-verify
+          passHostHeader: false
           # scheme: https
   tls:
     secretName: wildcard-admin-thelegend27-tls
