@@ -10,8 +10,8 @@ spec:
       path: kubernetes/grafana-alloy
       targetRevision: main
       ref: values
-    - chart: alloy
-      repoURL: https://grafana.github.io/helm-charts
+    - repoURL: oci://ghcr.io/grafana-community/helm-charts/alloy
+      path: .
       targetRevision: 1.20.1
       helm:
         valueFiles:
