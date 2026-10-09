@@ -12,7 +12,7 @@ spec:
       ref: values
     - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
       path: .
-      targetRevision: 0.13.2
+      targetRevision: 0.13.4
       helm:
         valueFiles:
           - $values/kubernetes/immich/values.yaml
