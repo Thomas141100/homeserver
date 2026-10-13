@@ -18,6 +18,8 @@ loki:
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
+    # SSH brute-force bots try hundreds of usernames/IPs; grouping by them needs more than the default 500 series
+    max_query_series: 5000
   ruler:
     enable_api: true
 
