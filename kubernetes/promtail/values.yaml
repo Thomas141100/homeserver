@@ -2,3 +2,23 @@ config:
 # publish data to loki
   clients:
     - url: http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push
+
+  snippets:
+    extraScrapeConfigs: |
+      - job_name: secure
+        static_configs:
+          - targets:
+              - localhost
+            labels:
+              job: secure
+              __path__: /host/var/log/secure
+
+extraVolumes:
+  - name: host-var-log
+    hostPath:
+      path: /var/log
+
+extraVolumeMounts:
+  - name: host-var-log
+    mountPath: /host/var/log
+    readOnly: true
