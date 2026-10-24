@@ -64,11 +64,7 @@ valkey:
   persistence:
     data:
       enabled: true
-      size: 1Gi
-      # Optional: Set this to persistentVolumeClaim to keep job queues persistent
       type: emptyDir
-      accessMode: ReadWriteOnce
-      # storageClass: your-class
 
 # Immich components
 
@@ -85,8 +81,9 @@ server:
     external:
       enabled: true
       existingClaim: immich-external
-      path: /usr/src/app/external
-      readOnly: true
+      globalMounts:
+        - path: /usr/src/app/external
+          readOnly: true
   ingress:
     main:
       enabled: false
@@ -117,8 +114,4 @@ machine-learning:
   persistence:
     cache:
       enabled: true
-      size: 10Gi
-      # Optional: Set this to persistentVolumeClaim to avoid downloading the ML models every start.
       type: emptyDir
-      accessMode: ReadWriteMany
-      # storageClass: your-class
