@@ -12,7 +12,7 @@ spec:
       ref: values
     - repoURL: https://itzg.github.io/minecraft-server-charts/
       chart: minecraft
-      targetRevision: 5.0.0
+      targetRevision: 5.3.1
       helm:
         valueFiles:
           - $values/kubernetes/minecraft/values.yaml
