@@ -16,6 +16,7 @@ renovate:
       "requireConfig": "optional",
       "repositories": ["Thomas141100/homeserver"],
       "extends": ["config:recommended"],
+      "includePaths": ["kubernetes/**"],
       "timezone": "Europe/Zurich",
       "prHourlyLimit": 0,
       "argocd": {
