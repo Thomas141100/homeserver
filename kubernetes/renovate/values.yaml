@@ -1,0 +1,79 @@
+cronjob:
+  # Renovate is a CronJob, not a Deployment. Once a day is plenty for a homelab.
+  schedule: '0 2 * * *'
+  timeZone: 'Europe/Zurich'
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  ttlSecondsAfterFinished: 86400
+  jobBackoffLimit: 1
+
+renovate:
+  config: |
+    {
+      "platform": "github",
+      "autodiscover": false,
+      "onboarding": false,
+      "requireConfig": "optional",
+      "repositories": ["Thomas141100/homeserver"],
+      "extends": ["config:recommended"],
+      "timezone": "Europe/Zurich",
+      "prHourlyLimit": 0,
+      "argocd": {
+        "managerFilePatterns": ["/^kubernetes/argocd/.+\\.ya?ml$/"]
+      },
+      "kubernetes": {
+        "managerFilePatterns": ["/^kubernetes/.+\\.ya?ml$/"]
+      },
+      "customManagers": [
+        {
+          "customType": "regex",
+          "description": "Immich app version: the shared image block has a tag but no repository, so helm-values can't see it",
+          "managerFilePatterns": ["/^kubernetes/immich/values\\.yaml$/"],
+          "matchStrings": ["image:\\s+tag:\\s*(?<currentValue>\\S+)"],
+          "depNameTemplate": "ghcr.io/immich-app/immich-server",
+          "datasourceTemplate": "docker"
+        },
+        {
+          "customType": "regex",
+          "description": "CloudNativePG cluster images use imageName, not image",
+          "managerFilePatterns": ["/^kubernetes/postgres/.+\\.ya?ml$/"],
+          "matchStrings": ["imageName:\\s*(?<depName>[^\\s:]+):(?<currentValue>\\S+)"],
+          "datasourceTemplate": "docker",
+          "versioningTemplate": "regex:^(?<compatibility>\\d+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+        }
+      ],
+      "packageRules": [
+        {
+          "description": "Floating tags (latest, stable...) are only trackable once pinned to a digest. Not for argocd: targetRevision can't hold one",
+          "matchManagers": ["kubernetes"],
+          "matchDatasources": ["docker"],
+          "pinDigests": true
+        },
+        {
+          "description": "One PR for all digest pins and refreshes instead of one per image",
+          "matchUpdateTypes": ["digest", "pinDigest"],
+          "groupName": "image digests"
+        },
+        {
+          "description": "Immich chart and app are released together",
+          "matchPackageNames": ["/^ghcr\\.io/immich-app//"],
+          "groupName": "immich"
+        }
+      ]
+    }
+
+existingSecret: renovate-github
+
+env:
+  LOG_LEVEL: 'info'
+
+securityContext:
+  runAsNonRoot: true
+  seccompProfile: { type: RuntimeDefault }
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    memory: 2Gi
