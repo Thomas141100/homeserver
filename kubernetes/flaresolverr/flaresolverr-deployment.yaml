@@ -17,7 +17,7 @@ spec:
       containers:
         - name: flaresolverr
           # image: flaresolverr/flaresolverr:latest
-          image: 21hsmw/flaresolverr:nodriver
+          image: 21hsmw/flaresolverr:nodriver@sha256:dca8cda5852b04e6142752fc044c9845eb536353ea6f8b7bb58b4ff9419538fa
           imagePullPolicy: Always
           env:
             - name: TZ

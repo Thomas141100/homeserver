@@ -16,7 +16,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: immich-db-dumper
-          image: prodrigestivill/postgres-backup-local:latest
+          image: prodrigestivill/postgres-backup-local:latest@sha256:f70742ebe42b2277689b028d1fd15aa80f77cffa01da163cc9f85a6ff1866e7f
           env:
             - name: POSTGRES_HOST
               value: pgvectors-immich-rw

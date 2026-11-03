@@ -16,7 +16,7 @@ spec:
           priorityClassName: system-cluster-critical
           containers:
             - name: descheduler
-              image: alvistar/descheduler:v20250129
+              image: alvistar/descheduler:v20250129@sha256:fab374a01987b9416343a3587e6bed167834ff684df4f2caa826a02ce32e58ed
               # image: registry.k8s.io/descheduler/descheduler:v0.32.0
               volumeMounts:
                 - mountPath: /policy-dir
