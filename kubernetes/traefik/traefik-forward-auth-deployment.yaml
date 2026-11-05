@@ -22,7 +22,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       containers:
-      - image: thomseddon/traefik-forward-auth:latest
+      - image: thomseddon/traefik-forward-auth:latest@sha256:b364aa6a4117569163eff793999901f9f5a0c4f7f2da18b4ecbcd140d7b6107b
         name: traefik-forward-auth
         ports:
         - containerPort: 4181
