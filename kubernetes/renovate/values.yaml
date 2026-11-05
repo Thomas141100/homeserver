@@ -31,8 +31,9 @@ renovate:
           "description": "Immich app version: the shared image block has a tag but no repository, so helm-values can't see it",
           "managerFilePatterns": ["/^kubernetes/immich/values\\.yaml$/"],
           "matchStrings": ["image:\\s+tag:\\s*(?<currentValue>\\S+)"],
-          "depNameTemplate": "ghcr.io/immich-app/immich-server",
-          "datasourceTemplate": "docker"
+          "depNameTemplate": "immich-app/immich",
+          "datasourceTemplate": "github-tags",
+          "versioningTemplate": "semver"
         },
         {
           "customType": "regex",
