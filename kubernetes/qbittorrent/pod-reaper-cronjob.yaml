@@ -18,7 +18,7 @@ spec:
         spec:
           containers:
             - name: pod-reaper
-              image: alpine/k8s:1.35.9
+              image: alpine/k8s:1.37.2@sha256:dcb7185e112a453aa72f426754849a97357727ef8f40168fb208c8cf59952042
               env:
                 - name: RESTART_THRESHOLD
                   value: "1"
