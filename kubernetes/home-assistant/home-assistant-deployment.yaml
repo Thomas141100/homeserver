@@ -20,7 +20,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: home-assistant
-          image: ghcr.io/home-assistant/home-assistant:stable
+          image: ghcr.io/home-assistant/home-assistant:stable@sha256:c6c1ca9931036bf3a2c4cc088d8db25dfea3b33935a5ecc83c40349462e2f69e
           imagePullPolicy: Always
           ports:
             - containerPort: 8123
@@ -45,7 +45,7 @@ spec:
             - name: usb
               mountPath: /dev/ttyUSB0
         - name: otbr
-          image: ghcr.io/ownbee/hass-otbr-docker
+          image: ghcr.io/ownbee/hass-otbr-docker@sha256:790f21835c86e0d9b9071f21b042ca77ef0ff70e714e8454903982a00df83cfb
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -83,7 +83,7 @@ spec:
               mountPath: /data
         - name: matter
           # image: ghcr.io/matter-js/matterjs-server:latest
-          image: ghcr.io/home-assistant-libs/python-matter-server:stable
+          image: ghcr.io/home-assistant-libs/python-matter-server:stable@sha256:170aa093ce91c76cde4cc390918307590f0f5558fcec93f913af3cb019e6562a
           imagePullPolicy: Always
           args:
             - --storage-path
