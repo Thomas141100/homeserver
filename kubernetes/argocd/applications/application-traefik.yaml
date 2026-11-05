@@ -29,7 +29,8 @@ spec:
             - --entryPoints.web.http.redirections.entryPoint.scheme=https
             - --entryPoints.web.http.redirections.entryPoint.permanent=true
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   destination:

@@ -17,7 +17,8 @@ spec:
         valueFiles:
           - $values/kubernetes/renovate/values.yaml
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   destination:

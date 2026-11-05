@@ -5,7 +5,8 @@ metadata:
   namespace: argocd
 spec:
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   project: default

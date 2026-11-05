@@ -17,7 +17,8 @@ spec:
           crds:
             enabled: true
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   destination:

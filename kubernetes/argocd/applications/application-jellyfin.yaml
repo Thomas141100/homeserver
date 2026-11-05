@@ -10,7 +10,8 @@ spec:
     repoURL: 'https://github.com/Thomas141100/homeserver.git'
     targetRevision: main
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
   destination:

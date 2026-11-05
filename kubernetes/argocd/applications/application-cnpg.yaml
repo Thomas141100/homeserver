@@ -12,7 +12,8 @@ spec:
     # helm:
     #   parameters:
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

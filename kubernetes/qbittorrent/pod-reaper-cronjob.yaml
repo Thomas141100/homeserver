@@ -1,0 +1,63 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pod-reaper-cronjob
+  namespace: qbittorrent
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: "Forbid"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          name: pod-reaper-pod
+        spec:
+          containers:
+            - name: pod-reaper
+              image: alpine/k8s:1.35.9
+              env:
+                - name: RESTART_THRESHOLD
+                  value: "1"
+                # kubectl writes its discovery cache under $HOME
+                - name: HOME
+                  value: /tmp
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  # Sum restarts over all containers, skip pods without an owner
+                  # (nothing would recreate them) and pods already terminating.
+                  pods=$(kubectl get pods -n qbittorrent -o json | jq -r --argjson t "$RESTART_THRESHOLD" '
+                    .items[]
+                    | select(.metadata.ownerReferences != null and .metadata.deletionTimestamp == null)
+                    | select(([.status.containerStatuses[]?.restartCount] | add // 0) >= $t)
+                    | .metadata.name')
+                  for pod in $pods; do
+                    echo "Deleting qbittorrent/$pod (restarts >= $RESTART_THRESHOLD)"
+                    kubectl delete pod -n qbittorrent "$pod" --wait=false
+                  done
+              resources:
+                requests:
+                  cpu: "50m"
+                  memory: "64Mi"
+              volumeMounts:
+                - mountPath: /tmp
+                  name: tmp
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 65534
+          restartPolicy: "Never"
+          serviceAccountName: pod-reaper-sa
+          volumes:
+            - name: tmp
+              emptyDir: {}
