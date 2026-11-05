@@ -19,7 +19,7 @@ spec:
       # hostNetwork: true
       containers:
         - name: wireguard
-          image: lscr.io/linuxserver/wireguard:latest
+          image: lscr.io/linuxserver/wireguard:latest@sha256:236f9a9a89c701bc83f6d41007157dc77361114d14e56a08e846bb4499622e97
           env:
             - name: ALLOWEDIPS
               value: 0.0.0.0/0
