@@ -12,7 +12,7 @@ spec:
       ref: values
     - chart: loki
       repoURL: https://grafana.github.io/helm-charts
-      targetRevision: 7.5.0
+      targetRevision: 7.6.0
       helm:
         valueFiles:
           - $values/kubernetes/loki/values.yaml
