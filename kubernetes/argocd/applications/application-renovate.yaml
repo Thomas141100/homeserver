@@ -12,7 +12,7 @@ spec:
       ref: values
     - repoURL: oci://ghcr.io/renovatebot/charts/renovate
       path: .
-      targetRevision: 46.417.4
+      targetRevision: 46.432.1
       helm:
         valueFiles:
           - $values/kubernetes/renovate/values.yaml
