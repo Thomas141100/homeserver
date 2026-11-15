@@ -18,7 +18,7 @@ spec:
       hostNetwork: true
       containers:
         - name: timemachine
-          image: mbentley/timemachine:smb@sha256:587ba12f70fe0d80c3f12dd96a7dd1ae5d45473adad341e4dd10d3966ededc3c
+          image: mbentley/timemachine:smb@sha256:825e66871bcc74b272e3bbce8a7b9419611902a73514feccca149b2a0c541e74
           imagePullPolicy: Always
           ports:
             - containerPort: 137
