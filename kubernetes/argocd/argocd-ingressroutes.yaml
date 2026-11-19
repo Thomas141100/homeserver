@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/description: Declarative GitOps
     gethomepage.dev/icon: argo-cd.png
     gethomepage.dev/group: Administration
-    gethomepage.dev/pod-selector: app=argocd
+    gethomepage.dev/pod-selector: app.kubernetes.io/name=argocd-server
     gethomepage.dev/widget.type: argocd
     gethomepage.dev/widget.url: http://argocd-server.argocd:80
     gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_ARGOCD_TOKEN}}"

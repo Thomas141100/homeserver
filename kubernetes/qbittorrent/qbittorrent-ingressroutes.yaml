@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/description: Torrents
     gethomepage.dev/icon: qbittorrent.png
     gethomepage.dev/group: Media Management
-    gethomepage.dev/pod-selector: app=qbittorrent-gluetun
+    gethomepage.dev/pod-selector: app=qbittorrent
     gethomepage.dev/widget.type: qbittorrent
     gethomepage.dev/widget.url: http://qbittorrent.qbittorrent:8080
     gethomepage.dev/widget.username: "{{HOMEPAGE_VAR_QBITTORRENT_USER}}"
