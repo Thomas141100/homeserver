@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: immich-ingress
-  namespace: cert-manager
+  namespace: immich
   annotations:
     gethomepage.dev/href: https://immich.admin.thelegend27.fr
     gethomepage.dev/enabled: "true"
@@ -30,5 +30,4 @@ spec:
           namespace: immich
           port: 2283
 
-  tls:
-    secretName: wildcard-admin-thelegend27-tls
+  tls: {}

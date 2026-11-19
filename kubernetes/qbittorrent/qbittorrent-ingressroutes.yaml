@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: torrent-ingress
-  namespace: cert-manager
+  namespace: qbittorrent
   annotations:
     gethomepage.dev/href: https://torrent.admin.thelegend27.fr
     gethomepage.dev/enabled: "true"
@@ -36,5 +36,4 @@ spec:
           namespace: qbittorrent
           port: 8080
 
-  tls:
-    secretName: wildcard-admin-thelegend27-tls
+  tls: {}

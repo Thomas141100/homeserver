@@ -1,0 +1,14 @@
+# Default TLS store for Traefik: lets IngressRoutes in any namespace use the
+# certificates managed here (selected by SNI) via `tls: {}`, without copying
+# the secrets into each namespace.
+apiVersion: traefik.io/v1alpha1
+kind: TLSStore
+metadata:
+  name: default
+  namespace: cert-manager
+spec:
+  certificates:
+    - secretName: wildcard-admin-thelegend27-tls
+    - secretName: admin-thelegend27-tls
+  defaultCertificate:
+    secretName: wildcard-admin-thelegend27-tls

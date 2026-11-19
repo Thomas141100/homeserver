@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: pihole-ingress
-  namespace: cert-manager
+  namespace: pihole
   annotations:
     gethomepage.dev/href: https://pihole.admin.thelegend27.fr
     gethomepage.dev/enabled: "true"
@@ -30,5 +30,4 @@ spec:
           namespace: pihole
           port: 8080
 
-  tls:
-    secretName: admin-thelegend27-tls
+  tls: {}

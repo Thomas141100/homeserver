@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: jellyfin-ingress
-  namespace: cert-manager
+  namespace: jellyfin
   annotations:
     gethomepage.dev/href: https://jellyfin.admin.thelegend27.fr
     gethomepage.dev/enabled: "true"
@@ -30,5 +30,4 @@ spec:
           namespace: jellyfin
           port: 8096
 
-  tls:
-    secretName: wildcard-admin-thelegend27-tls
+  tls: {}
